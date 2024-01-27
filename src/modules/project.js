@@ -15,7 +15,9 @@ function setProjectLocalstorage() {
     projects = JSON.parse(localStorage.getItem("projectCollection"));
   }
 }
+
 setProjectLocalstorage();
+
 function createProject(name) {
   projects.push(new Project(name));
   updateProject();
@@ -23,6 +25,7 @@ function createProject(name) {
 
 function deleteProject(projectId) {
   let projectIndex = projects.findIndex((project) => project.id === projectId);
+
   projects.splice(projectIndex, 1);
   updateProject();
 }
@@ -40,12 +43,16 @@ class Project {
     this.id = Project.nextId();
   }
 
-  getId() {
-    return this.id;
-  }
-
   static nextId() {
     return Project.#id++;
+  }
+
+  static getId() {
+    return Project.#id;
+  }
+
+  getId() {
+    return this.id;
   }
 
   nextTaskId() {
@@ -67,22 +74,24 @@ class Project {
         taskPriority
       )
     );
-    // localStorage.setItem("projectCollection", JSON.stringify(projects));
+    updateProject();
   }
 
   deleteTask(taskId) {
     let taskIndex = this.tasks.findIndex((task) => task.id === taskId);
+
     this.tasks.splice(taskIndex, 1);
-    // localStorage.setItem("projectCollection", JSON.stringify(projects));
+    updateProject();
   }
 
   updateTask(taskId, taskName, taskDes, taskDuedate, taskPriority) {
     let taskIndex = this.tasks.findIndex((task) => task.id === taskId);
+
     this.tasks[taskIndex].name = taskName;
     this.tasks[taskIndex].description = taskDes;
     this.tasks[taskIndex].duedate = taskDuedate;
     this.tasks[taskIndex].priority = taskPriority;
-    // localStorage.setItem("projectCollection", JSON.stringify(projects));
+    updateProject();
   }
 }
 // add project
@@ -93,11 +102,13 @@ const cancelFormBtn = document.querySelector("#cancel-project-btn");
 
 showProjectFormBtn.addEventListener("click", (e) => {
   e.preventDefault();
+
   projectFormContainer.style.display = "block";
 });
 
 cancelFormBtn.addEventListener("click", (e) => {
   e.preventDefault();
+
   projectFormContainer.style.display = "none";
 });
 
@@ -106,12 +117,16 @@ const addProjectBtn = document.querySelector("#add-project-btn");
 
 addProjectBtn.addEventListener("click", (e) => {
   console.log("Add project");
+
   if (inputProjectName.value === "") {
     return;
   }
+
   createProject(inputProjectName.value);
+
   inputProjectName.value = "";
   projectFormContainer.style.display = "none";
+
   addNewProjectNavbar();
   e.preventDefault();
 });
@@ -123,8 +138,13 @@ function addNewProjectNavbar() {
   const project = document.createElement("div");
 
   project.textContent = `${projects[projects.length - 1].name}`;
-  project.dataset.index = `${projects.length - 1}`;
+  project.dataset.index = `${Project.getId()}`;
   project.classList.add("project-nav-item");
+
+  project.addEventListener("click", (e) => {
+    renderProjectContent(e);
+  });
+
   projectNavListContainer.appendChild(project);
 }
 
@@ -133,12 +153,42 @@ function renderProjectNavbar() {
   const projectNavListContainer = document.querySelector(
     ".project-list-container"
   );
+
   projectData.forEach((project) => {
     const projectDiv = document.createElement("div");
+
     projectDiv.textContent = `${project.name}`;
     projectDiv.dataset.index = `${project.id}`;
+    projectDiv.classList.add("project-nav-item");
+
+    projectDiv.addEventListener("click", (e) => {
+      renderProjectContent(e);
+    });
+
     projectNavListContainer.appendChild(projectDiv);
   });
+}
+
+function renderProjectContent(e) {
+  const contentContainer = document.querySelector(".content-container");
+  const projectContentContainer = document.createElement("div");
+  const projectHeaderName = document.createElement("div");
+
+  clearContentContainer();
+
+  projectContentContainer.classList.add("project-content-container");
+  projectHeaderName.textContent = `${projects[e.target.dataset.index].name}`;
+  projectHeaderName.classList.add("project-header-name");
+  projectContentContainer.appendChild(projectHeaderName);
+  contentContainer.appendChild(projectContentContainer);
+}
+
+function clearContentContainer() {
+  const contentContainer = document.querySelector(".content-container");
+
+  while (contentContainer.firstElementChild) {
+    contentContainer.removeChild(contentContainer.firstElementChild);
+  }
 }
 
 export {

@@ -122,6 +122,11 @@ p {
   flex: 1;
 }
 
+.project-header-name {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
+}
+
 /* footer */
 footer {
   margin-top: auto;
