@@ -1,16 +1,20 @@
-import "./style.css";
+// import "./style.css";
 
 let projects = [];
 
 function createProject(name) {
   projects.push(new Project(name));
-  //   localStorage.setItem("projectCollection", JSON.stringify(projects));
+  updateProject();
 }
 
 function deleteProject(projectId) {
   let projectIndex = projects.findIndex((project) => project.id === projectId);
   projects.splice(projectIndex, 1);
-  //   localStorage.setItem("projectCollection", JSON.stringify(projects));
+  updateProject();
+}
+
+function updateProject() {
+  localStorage.setItem("projectCollection", JSON.stringify(projects));
 }
 
 class Project {
@@ -41,6 +45,7 @@ class Project {
   addTask(taskName, taskDescription, taskDuedate, taskPriority) {
     this.tasks.push(
       new Task(
+        this.id,
         this.nextTaskId(),
         taskName,
         taskDescription,
@@ -68,7 +73,8 @@ class Project {
 }
 
 class Task {
-  constructor(id, name, description, duedate, priority) {
+  constructor(projectId, id, name, description, duedate, priority) {
+    this.projectId = projectId;
     this.id = id;
     this.name = name;
     this.description = description;
@@ -77,32 +83,79 @@ class Task {
   }
 }
 
-createProject("p1");
-createProject("p2");
-// console.log(projects);
-projects[1].addTask("task1", "lorem", new Date(), 2);
-projects[1].addTask("task2", "lorem", new Date(), 1);
-projects[1].addTask("task3", "lorem", new Date(), 2);
-projects[1].addTask("task4", "lorem", new Date(), 3);
-projects[1].addTask("task5", "lorem", new Date(), 2);
-projects[1].addTask("task6", "lorem", new Date(), 1);
-projects[1].addTask("task7", "lorem", new Date(), 3);
-projects[1].addTask("task8", "lorem", new Date(), 1);
-// console.log(projects);
-// console.log(projects[1]);
-// console.log(projects[1].tasks);
-projects[1].updateTask(7, "Buwaaaa", "555", "2040-12-5", 4);
-projects[1].deleteTask(4);
-projects[1].updateTask(2, "Gwaa", "222", "2040-12-5", 7);
-// console.log(projects[1].tasks);
-createProject("p3");
-createProject("p4");
-createProject("p5");
-createProject("p6");
-createProject("p7");
-createProject("p8");
-console.log(projects);
-deleteProject(3);
-console.log(projects);
-deleteProject(6);
-console.log(projects);
+// add project
+
+const showProjectFormBtn = document.querySelector("#show-project-form-btn");
+const projectFormContainer = document.querySelector(".project-form-container");
+const cancelFormBtn = document.querySelector("#cancel-project-btn");
+
+showProjectFormBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  projectFormContainer.style.display = "block";
+});
+
+cancelFormBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  projectFormContainer.style.display = "none";
+});
+
+const inputProjectName = document.querySelector("#project_name");
+const addProjectBtn = document.querySelector("#add-project-btn");
+
+addProjectBtn.addEventListener("click", (e) => {
+  console.log("hah");
+  if (inputProjectName.value === "") {
+    return;
+  }
+  createProject(inputProjectName.value);
+  inputProjectName.value = "";
+  projectFormContainer.style.display = "none";
+  renderNewProjectNavbar();
+  e.preventDefault();
+});
+
+function renderNewProjectNavbar() {
+  const projectNavListContainer = document.querySelector(
+    ".project-list-container"
+  );
+  const project = document.createElement("div");
+
+  project.textContent = `${projects[projects.length - 1].name}`;
+  project.dataset.index = `${projects.length - 1}`;
+  project.classList.add("project-nav-item");
+  projectNavListContainer.appendChild(project);
+}
+
+// add task
+
+const taskForm = document.querySelector("#task-form");
+const showTaskFormBtn = document.querySelector(".dummy-add-task");
+const cancelTaskFormBtn = document.querySelector("#cancel-task-btn");
+
+function toggleTaskForm() {
+  if (taskForm.style.display === "" || taskForm.style.display === "none") {
+    taskForm.style.display = "block";
+  } else if (taskForm.style.display === "block") {
+    taskForm.style.display = "none";
+  }
+}
+
+function clearTaskFormValue(e) {}
+
+showTaskFormBtn.addEventListener("click", (e) => {
+  // e.preventDefault();
+  console.log("Show task");
+  toggleTaskForm();
+});
+
+cancelTaskFormBtn.addEventListener("click", (e) => {
+  console.log("cancel task");
+  toggleTaskForm();
+});
+
+const addTaskBtn = document.querySelector("#add-task-btn");
+
+addTaskBtn.addEventListener("click", (e) => {
+  console.log("add");
+  toggleTaskForm();
+});

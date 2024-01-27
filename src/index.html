@@ -4,10 +4,109 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <link rel="stylesheet" href="./style.css" />
     <script src="./index.js" defer></script>
   </head>
   <body>
-    <h1 class="test">test</h1>
+    <header class="header-wrapper">
+      <div class="header-container">
+        <div class="expand-nav-btn">
+          <span class="material-symbols-outlined"> menu </span>
+        </div>
+        <div class="header-text">To Do list</div>
+      </div>
+    </header>
+    <main class="wrapper">
+      <div class="navbar-wrapper">
+        <div class="navbar-container">
+          <div class="all-task">All Task</div>
+          <div class="today-task">Today Task</div>
+          <div class="weekly-task">Weekly Task</div>
+        </div>
+        <div class="project-nav-container">
+          <div class="project-nav-text">Project</div>
+          <div class="project-list-container">
+            <!-- touch project element will render content container to project page that show task detail list-->
+            <!-- <div class="project">
+              <div id="project-name">DummyName</div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="content-container">
+        <button id="show-project-form-btn">Add</button>
+        <div class="project-content-container">
+          <div class="task-container">
+            <div class="task-name"></div>
+            <div class="task-description"></div>
+            <div class="task-duedate"></div>
+            <div class="task-priority"></div>
+          </div>
+        </div>
+        <button type="click" class="dummy-add-task">Show Task</button>
+      </div>
+    </main>
+    <form class="project-form-container" id="project-form">
+      <div class="project-header-text">
+        <label for="project_name">Project Name</label>
+
+        <input
+          type="text"
+          id="project_name"
+          name="project_name"
+          placeholder="Shopping list ... etc"
+          required
+        />
+      </div>
+      <div class="project-btn-container">
+        <button type="submit" id="add-project-btn">Add</button>
+        <button id="cancel-project-btn">Cancel</button>
+      </div>
+    </form>
+
+    <form id="task-form">
+      <div class="task-input-name">
+        <label for="task_name">Task Name</label>
+        <input type="text" id="task_name" name="task_name" required />
+      </div>
+      <div class="task-input-description">
+        <label for="task_description">Description</label>
+        <input
+          type="text"
+          id="task_description"
+          name="task_description"
+          required
+        />
+      </div>
+      <div class="task-input-due- date">
+        <label for="task_due_date">Due date</label>
+        <input type="date" id="task_due_date" name="task_due_date" required />
+      </div>
+      <div class="task-input-priority">
+        <label for="task_priority">Priority</label>
+        <select id="task_priority" name="task_priority" required>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+        </select>
+      </div>
+      <div class="task-btn-container">
+        <button type="button" id="add-task-btn">Add</button>
+        <button type="button" id="cancel-task-btn">Cancel</button>
+      </div>
+    </form>
+
+    <footer>I'm Footer</footer>
   </body>
 </html>
