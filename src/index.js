@@ -28,7 +28,17 @@ function toggleTaskForm() {
   }
 }
 
-function clearTaskFormValue(e) {}
+function clearTaskFormValue(e) {
+  const taskInputName = document.querySelector("#task_name");
+  const taskInputDesciption = document.querySelector("#task_description");
+  const taskInputDuedate = document.querySelector("#task_due_date");
+  const taskInputPriority = document.querySelector("#task_priority");
+
+  taskInputName.value = "";
+  taskInputDesciption.value = "";
+  taskInputDuedate.value = "";
+  taskInputPriority.value = "1";
+}
 
 showTaskFormBtn.addEventListener("click", (e) => {
   // e.preventDefault();
@@ -46,4 +56,5 @@ const addTaskBtn = document.querySelector("#add-task-btn");
 addTaskBtn.addEventListener("click", (e) => {
   console.log("add");
   toggleTaskForm();
+  clearTaskFormValue();
 });
