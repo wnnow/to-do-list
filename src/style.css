@@ -133,12 +133,18 @@ button {
 }
 
 .project-nav-item {
-  padding: 2px 4px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.project-nav-item:hover {
+  background-color: gray;
 }
 
 /* content */
 .content-container {
-  border: 1px solid red;
+  border: 1px solid gray;
   padding: 1rem;
   flex: 1;
 }

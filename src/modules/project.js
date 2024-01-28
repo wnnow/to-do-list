@@ -1,39 +1,6 @@
+import { toggleTaskForm, clearTaskFormValue } from "./task.js";
+
 let projects;
-
-function isLocalStorageProjectsEmpty() {
-  if (JSON.parse(localStorage.getItem("projectCollection") === null)) {
-    return true;
-  }
-  return false;
-}
-
-function setProjectLocalstorage() {
-  if (isLocalStorageProjectsEmpty()) {
-    projects = [];
-    localStorage.setItem("projectCollection", JSON.stringify(projects));
-  } else {
-    projects = JSON.parse(localStorage.getItem("projectCollection"));
-  }
-}
-
-setProjectLocalstorage();
-
-function createProject(name) {
-  projects.push(new Project(name));
-  updateProject();
-}
-
-function deleteProject(projectId) {
-  let projectIndex = projects.findIndex((project) => project.id === projectId);
-
-  projects.splice(projectIndex, 1);
-  updateProject();
-}
-
-function updateProject() {
-  localStorage.setItem("projectCollection", JSON.stringify(projects));
-}
-
 class Project {
   static #id = 0;
   #taskId = 0;
@@ -56,6 +23,10 @@ class Project {
   }
   static setLocalStorageProjectsId() {
     localStorage.setItem("projectsId", Project.getId());
+  }
+
+  static clearProjectsId() {
+    Project.#id = 0;
   }
 
   getId() {
@@ -101,6 +72,44 @@ class Project {
     updateProject();
   }
 }
+
+function isLocalStorageProjectsEmpty() {
+  if (JSON.parse(localStorage.getItem("projectCollection") === null)) {
+    return true;
+  }
+  return false;
+}
+
+function setProjectLocalstorage() {
+  if (isLocalStorageProjectsEmpty()) {
+    projects = [];
+    localStorage.setItem("projectCollection", JSON.stringify(projects));
+    Project.clearProjectsId();
+    Project.setLocalStorageProjectsId();
+  } else {
+    projects = JSON.parse(localStorage.getItem("projectCollection"));
+    Project.getLocalStorageProjectsId();
+  }
+}
+
+setProjectLocalstorage();
+
+function createProject(name) {
+  projects.push(new Project(name));
+  updateProject();
+}
+
+function deleteProject(projectId) {
+  let projectIndex = projects.findIndex((project) => project.id === projectId);
+
+  projects.splice(projectIndex, 1);
+  updateProject();
+}
+
+function updateProject() {
+  localStorage.setItem("projectCollection", JSON.stringify(projects));
+}
+
 // add project
 
 const showProjectFormBtn = document.querySelector("#show-project-form-btn");
@@ -176,14 +185,29 @@ function renderProjectContent(e) {
   const contentContainer = document.querySelector(".content-container");
   const projectContentContainer = document.createElement("div");
   const projectHeaderName = document.createElement("div");
-
+  // const showTaskFormBtn = document.createElement("button");
+  // showTaskFormBtn.setAttribute("type", "click");
+  // showTaskFormBtn.classList.add("show-task-form-btn");
+  // showTaskFormBtn.textContent = "Show Task";
   clearContentContainer();
 
   projectContentContainer.classList.add("project-content-container");
   projectHeaderName.textContent = `${projects[e.target.dataset.index].name}`;
   projectHeaderName.classList.add("project-header-name");
   projectContentContainer.appendChild(projectHeaderName);
+  projectContentContainer.appendChild(createShowTaskFormBtn());
   contentContainer.appendChild(projectContentContainer);
+}
+
+function createShowTaskFormBtn() {
+  const showTaskFormBtn = document.createElement("button");
+  showTaskFormBtn.setAttribute("type", "click");
+  showTaskFormBtn.classList.add("show-task-form-btn");
+  showTaskFormBtn.textContent = "Show Task";
+  showTaskFormBtn.addEventListener("click", (e) => {
+    toggleTaskForm();
+  });
+  return showTaskFormBtn;
 }
 
 function clearContentContainer() {
