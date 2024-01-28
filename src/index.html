@@ -36,24 +36,24 @@
         <div class="project-nav-container">
           <div class="project-nav-text">Project</div>
           <button id="show-project-form-btn">Add Project</button>
-          <div class="project-list-container">
-            <!-- touch project element will render content container to project page that show task detail list-->
-            <!-- <div class="project">
-              <div id="project-name">DummyName</div>
-            </div> -->
-          </div>
+          <div class="project-list-container"></div>
         </div>
       </div>
 
       <div class="content-container">
         <div class="project-content-container">
           <div class="project-header-name">Shopping!</div>
-          <div class="task-container">
-            <div class="task-name">Buy dog food</div>
-            <div class="task-description">Go to the mall after work</div>
-            <div class="task-duedate">2024-2-12</div>
-            <div class="task-priority">Medium</div>
-          </div>
+          <ul class="task-container">
+            <li class="task-content">
+              <div class="check-task">
+                <input type="checkbox" id="toggleCheckbox" />
+              </div>
+              <div class="task-name">Buy dog food</div>
+              <div class="task-description">Go to the mall after work</div>
+              <div class="task-duedate">2024-2-12</div>
+              <div class="task-priority">Medium</div>
+            </li>
+          </ul>
         </div>
         <button type="click" class="dummy-add-task">Show Task</button>
       </div>
@@ -90,7 +90,7 @@
           required
         />
       </div>
-      <div class="task-input-due- date">
+      <div class="task-input-duedate">
         <label for="task_due_date">Due date</label>
         <input type="date" id="task_due_date" name="task_due_date" required />
       </div>

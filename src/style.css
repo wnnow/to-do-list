@@ -31,6 +31,7 @@ body {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 img,
@@ -63,6 +64,21 @@ p {
   max-width: 75ch;
   text-wrap: pretty;
   font-size: 2rem;
+}
+
+input {
+  outline: none;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 100%;
+  padding: 2px 4px;
+}
+
+button {
+  padding: 4px 8px;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 100px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -115,6 +131,11 @@ p {
 .project-list-container {
   gap: 16px;
 }
+
+.project-nav-item {
+  padding: 2px 4px;
+}
+
 /* content */
 .content-container {
   border: 1px solid red;
@@ -125,6 +146,12 @@ p {
 .project-header-name {
   font-size: 1.25rem;
   margin-bottom: 16px;
+}
+
+.task-content {
+  display: flex;
+  gap: 32px;
+  align-items: center;
 }
 
 /* footer */
@@ -142,6 +169,15 @@ footer {
   border: 1px solid black;
   padding: 1rem;
   width: 300px;
+  z-index: 1;
+  background-color: white;
+  border-radius: 10px;
+}
+
+#project-form > div,
+#project-form > div.project-form-text > label {
+  display: block;
+  margin-bottom: 16px;
 }
 
 /* task form */
@@ -154,6 +190,19 @@ footer {
   border: 1px solid black;
   padding: 1rem;
   width: 300px;
+  z-index: 1;
+  background-color: white;
+  border-radius: 10px;
+}
+#task-form > div {
+  margin-bottom: 16px;
+}
+
+.task-input-name > label,
+.task-input-description > label,
+.task-input-duedate > label {
+  display: block;
+  margin-bottom: 16px;
 }
 
 @media screen and (max-width: 500px) {

@@ -3,13 +3,14 @@ import { renderProjectNavbar } from "./modules/project.js";
 
 renderProjectNavbar();
 class Task {
-  constructor(projectId, id, name, description, duedate, priority) {
+  constructor(projectId, id, name, description, duedate, priority, status) {
     this.projectId = projectId;
     this.id = id;
     this.name = name;
     this.description = description;
     this.duedate = duedate;
     this.priority = priority;
+    this.status = status;
   }
 }
 

@@ -51,6 +51,13 @@ class Project {
     return Project.#id;
   }
 
+  static getLocalStorageProjectsId() {
+    Project.#id = JSON.parse(localStorage.getItem("projectsId"));
+  }
+  static setLocalStorageProjectsId() {
+    localStorage.setItem("projectsId", Project.getId());
+  }
+
   getId() {
     return this.id;
   }
@@ -99,31 +106,26 @@ class Project {
 const showProjectFormBtn = document.querySelector("#show-project-form-btn");
 const projectFormContainer = document.querySelector(".project-form-container");
 const cancelFormBtn = document.querySelector("#cancel-project-btn");
+const inputProjectName = document.querySelector("#project_name");
+const addProjectBtn = document.querySelector("#add-project-btn");
 
 showProjectFormBtn.addEventListener("click", (e) => {
   e.preventDefault();
-
   projectFormContainer.style.display = "block";
 });
 
 cancelFormBtn.addEventListener("click", (e) => {
   e.preventDefault();
-
   projectFormContainer.style.display = "none";
 });
 
-const inputProjectName = document.querySelector("#project_name");
-const addProjectBtn = document.querySelector("#add-project-btn");
-
 addProjectBtn.addEventListener("click", (e) => {
-  console.log("Add project");
-
   if (inputProjectName.value === "") {
     return;
   }
-
+  Project.getLocalStorageProjectsId();
   createProject(inputProjectName.value);
-
+  Project.setLocalStorageProjectsId();
   inputProjectName.value = "";
   projectFormContainer.style.display = "none";
 
@@ -138,7 +140,7 @@ function addNewProjectNavbar() {
   const project = document.createElement("div");
 
   project.textContent = `${projects[projects.length - 1].name}`;
-  project.dataset.index = `${Project.getId()}`;
+  project.dataset.index = `${Project.getId() - 1}`;
   project.classList.add("project-nav-item");
 
   project.addEventListener("click", (e) => {
@@ -170,6 +172,7 @@ function renderProjectNavbar() {
 }
 
 function renderProjectContent(e) {
+  e.stopPropagation();
   const contentContainer = document.querySelector(".content-container");
   const projectContentContainer = document.createElement("div");
   const projectHeaderName = document.createElement("div");
