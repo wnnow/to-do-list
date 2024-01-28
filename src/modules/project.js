@@ -1,9 +1,9 @@
-import { toggleTaskForm, clearTaskFormValue } from "./task.js";
+import { Task, toggleTaskForm, clearTaskFormValue } from "./task.js";
 
-let projects;
+let projects = [];
 class Project {
   static #id = 0;
-  #taskId = 0;
+  taskId = 0;
   constructor(name) {
     this.name = name;
     this.tasks = [];
@@ -22,7 +22,7 @@ class Project {
     Project.#id = JSON.parse(localStorage.getItem("projectsId"));
   }
   static setLocalStorageProjectsId() {
-    localStorage.setItem("projectsId", Project.getId());
+    localStorage.setItem("projectsId", JSON.stringify(Project.getId()));
   }
 
   static clearProjectsId() {
@@ -34,11 +34,19 @@ class Project {
   }
 
   nextTaskId() {
-    return this.#taskId++;
+    return this.taskId++;
   }
 
   getTaskId() {
-    return this.#taskId;
+    return this.taskId;
+  }
+
+  setLocalStorageProjectId() {
+    localStorage.setItem("projectId", JSON.stringify(this.getId()));
+  }
+
+  getLocalStorageProjectId() {
+    this.taskId = JSON.parse(localStorage.getItem("projectId"));
   }
 
   addTask(taskName, taskDescription, taskDuedate, taskPriority) {
@@ -82,20 +90,32 @@ function isLocalStorageProjectsEmpty() {
 
 function setProjectLocalstorage() {
   if (isLocalStorageProjectsEmpty()) {
-    projects = [];
     localStorage.setItem("projectCollection", JSON.stringify(projects));
     Project.clearProjectsId();
     Project.setLocalStorageProjectsId();
   } else {
-    projects = JSON.parse(localStorage.getItem("projectCollection"));
+    loadProjectsFromLocalStorage();
     Project.getLocalStorageProjectsId();
   }
 }
 
+function loadProjectsFromLocalStorage() {
+  const storeProjects = JSON.parse(localStorage.getItem("projectCollection"));
+  console.log(storeProjects);
+  storeProjects.forEach((storeProject, index) => {
+    const project = new Project(storeProject.name);
+    project.id = storeProject.id;
+    project.tasks = storeProject.tasks;
+    project.taskId = storeProject.taskId;
+
+    projects[index] = project;
+  });
+}
 setProjectLocalstorage();
 
 function createProject(name) {
-  projects.push(new Project(name));
+  let project = new Project(name);
+  projects.push(project);
   updateProject();
 }
 
@@ -184,19 +204,28 @@ function renderProjectContent(e) {
   e.stopPropagation();
   const contentContainer = document.querySelector(".content-container");
   const projectContentContainer = document.createElement("div");
-  const projectHeaderName = document.createElement("div");
-  // const showTaskFormBtn = document.createElement("button");
-  // showTaskFormBtn.setAttribute("type", "click");
-  // showTaskFormBtn.classList.add("show-task-form-btn");
-  // showTaskFormBtn.textContent = "Show Task";
+
   clearContentContainer();
 
   projectContentContainer.classList.add("project-content-container");
-  projectHeaderName.textContent = `${projects[e.target.dataset.index].name}`;
-  projectHeaderName.classList.add("project-header-name");
-  projectContentContainer.appendChild(projectHeaderName);
+  projectContentContainer.appendChild(createProjectHeaderContent(e));
+  projectContentContainer.appendChild(createTaskContainer());
   projectContentContainer.appendChild(createShowTaskFormBtn());
   contentContainer.appendChild(projectContentContainer);
+}
+
+function createProjectHeaderContent(e) {
+  const projectHeaderName = document.createElement("div");
+  projectHeaderName.textContent = `${projects[e.target.dataset.index].name}`;
+  projectHeaderName.dataset.index = `${e.target.dataset.index}`;
+  projectHeaderName.classList.add("project-header-name");
+  return projectHeaderName;
+}
+
+function createTaskContainer() {
+  const taskContainer = document.createElement("ul");
+  taskContainer.classList.add("task-container");
+  return taskContainer;
 }
 
 function createShowTaskFormBtn() {
