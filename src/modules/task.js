@@ -90,6 +90,8 @@ function renderTask(task) {
 
   taskContainer.classList.add("task-container");
   taskList.classList.add("task-content");
+  taskList.dataset.projectIndex = task.projectId;
+  taskList.dataset.taskIndex = task.id;
   taskCheckBoxContainer.classList.add("task-checkbox");
   taskStatus.id = "task-status";
   taskStatus.setAttribute("type", "checkbox");

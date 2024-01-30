@@ -261,10 +261,36 @@ function renderProjectTask(e) {
   const projectId = +e.target.dataset.index;
   const project = projects[projectId];
 
-  project.tasks.forEach((task, index) => {
+  project.tasks.forEach((task) => {
     renderTask(task);
   });
 }
+
+function renderDefaultAllTaskContent() {
+  projects.forEach((project) => {
+    project.tasks.forEach((task) => {
+      renderTask(task);
+    });
+  });
+}
+
+renderDefaultAllTaskContent();
+
+function clearTaskContainer() {
+  const taskContainer = document.querySelector(".task-container");
+  while (taskContainer.firstElementChild) {
+    taskContainer.removeChild(taskContainer.firstElementChild);
+  }
+}
+
+const allTaskBtn = document.querySelector(".all-task");
+
+allTaskBtn.addEventListener("click", (e) => {
+  const projectHeaderName = document.querySelector(".project-header-name");
+  projectHeaderName.textContent = "All Task";
+  clearTaskContainer();
+  renderDefaultAllTaskContent();
+});
 
 export {
   Project,
