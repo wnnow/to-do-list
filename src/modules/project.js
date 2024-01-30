@@ -1,4 +1,11 @@
-import { Task, toggleTaskForm, clearTaskFormValue } from "./task.js";
+//  this is project.js
+
+import {
+  Task,
+  toggleTaskForm,
+  clearTaskFormValue,
+  renderTask,
+} from "./task.js";
 
 let projects = [];
 class Project {
@@ -57,7 +64,8 @@ class Project {
         taskName,
         taskDescription,
         taskDuedate,
-        taskPriority
+        taskPriority,
+        false
       )
     );
     updateProject();
@@ -174,6 +182,7 @@ function addNewProjectNavbar() {
 
   project.addEventListener("click", (e) => {
     renderProjectContent(e);
+    renderProjectTask(e);
   });
 
   projectNavListContainer.appendChild(project);
@@ -194,6 +203,7 @@ function renderProjectNavbar() {
 
     projectDiv.addEventListener("click", (e) => {
       renderProjectContent(e);
+      renderProjectTask(e);
     });
 
     projectNavListContainer.appendChild(projectDiv);
@@ -245,6 +255,15 @@ function clearContentContainer() {
   while (contentContainer.firstElementChild) {
     contentContainer.removeChild(contentContainer.firstElementChild);
   }
+}
+
+function renderProjectTask(e) {
+  const projectId = +e.target.dataset.index;
+  const project = projects[projectId];
+
+  project.tasks.forEach((task, index) => {
+    renderTask(task);
+  });
 }
 
 export {

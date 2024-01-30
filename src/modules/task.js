@@ -1,3 +1,4 @@
+// this is task.js
 import {
   Project,
   createProject,
@@ -63,6 +64,7 @@ function createTask(e) {
   const taskInputDesciption = document.querySelector("#task_description");
   const taskInputDuedate = document.querySelector("#task_due_date");
   const taskInputPriority = document.querySelector("#task_priority");
+
   const projectTargetIndex = +document.querySelector(".project-header-name")
     .dataset.index;
 
@@ -70,28 +72,46 @@ function createTask(e) {
     taskInputName.value,
     taskInputDesciption.value,
     taskInputDuedate.value,
-    taskInputPriority.value
+    taskInputPriority.value,
+    false
   );
 }
 
-function renderTask() {
+function renderTask(task) {
+  console.log("run renderTask");
   const taskContainer = document.querySelector(".task-container");
   const taskList = document.createElement("li");
-  const taskCheckBox = document.createElement("div");
+  const taskCheckBoxContainer = document.createElement("div");
+  const taskStatus = document.createElement("input");
   const taskName = document.createElement("div");
   const taskDes = document.createElement("div");
   const taskDuedate = document.createElement("div");
   const taskPriority = document.createElement("div");
 
   taskContainer.classList.add("task-container");
-  taskList.classList.add("task-list");
-  taskCheckBox.classList.add("task-checkbox");
+  taskList.classList.add("task-content");
+  taskCheckBoxContainer.classList.add("task-checkbox");
+  taskStatus.id = "task-status";
+  taskStatus.setAttribute("type", "checkbox");
+
   taskName.classList.add("task-name");
   taskDes.classList.add("task-description");
   taskDuedate.classList.add("task-duedate");
   taskPriority.classList.add("task-priority");
 
-  taskCheckBox.v;
+  taskStatus.checked = task.status;
+  taskName.textContent = task.name;
+  taskDes.textContent = task.description;
+  taskDuedate.textContent = task.duedate;
+  taskPriority.textContent = task.priority;
+
+  taskCheckBoxContainer.appendChild(taskStatus);
+  taskList.appendChild(taskCheckBoxContainer);
+  taskList.appendChild(taskName);
+  taskList.appendChild(taskDes);
+  taskList.appendChild(taskDuedate);
+  taskList.appendChild(taskPriority);
+  taskContainer.appendChild(taskList);
 }
 
 addTaskBtn.addEventListener("click", (e) => {
@@ -101,4 +121,4 @@ addTaskBtn.addEventListener("click", (e) => {
   clearTaskFormValue();
 });
 
-export { Task, toggleTaskForm, clearTaskFormValue };
+export { Task, toggleTaskForm, clearTaskFormValue, renderTask };
