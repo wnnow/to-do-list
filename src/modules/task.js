@@ -23,7 +23,7 @@ class Task {
 // add task
 
 const taskForm = document.querySelector("#task-form");
-const showTaskFormBtn = document.querySelector(".show-task-form-btn");
+// const showTaskFormBtn = document.querySelector(".show-task-form-btn");
 const cancelTaskFormBtn = document.querySelector("#cancel-task-btn");
 
 function toggleTaskForm() {
@@ -46,11 +46,11 @@ function clearTaskFormValue(e) {
   taskInputPriority.value = "1";
 }
 
-showTaskFormBtn.addEventListener("click", (e) => {
-  // e.preventDefault();
-  console.log("Show task");
-  toggleTaskForm();
-});
+// showTaskFormBtn.addEventListener("click", (e) => {
+//   // e.preventDefault();
+//   console.log("Show task");
+//   toggleTaskForm();
+// });
 
 cancelTaskFormBtn.addEventListener("click", (e) => {
   console.log("cancel task");
@@ -60,6 +60,7 @@ cancelTaskFormBtn.addEventListener("click", (e) => {
 const addTaskBtn = document.querySelector("#add-task-btn");
 
 function createTask(e) {
+  const taskForm = document.querySelector("#task-form");
   const taskInputName = document.querySelector("#task_name");
   const taskInputDesciption = document.querySelector("#task_description");
   const taskInputDuedate = document.querySelector("#task_due_date");
@@ -68,6 +69,14 @@ function createTask(e) {
   const projectTargetIndex = +document.querySelector(".project-header-name")
     .dataset.index;
 
+  if (
+    taskInputName.value === "" ||
+    taskInputDesciption.value === "" ||
+    taskInputDuedate.value === "" ||
+    taskInputPriority.value === ""
+  ) {
+    return;
+  }
   projects[projectTargetIndex].addTask(
     taskInputName.value,
     taskInputDesciption.value,
@@ -75,6 +84,10 @@ function createTask(e) {
     taskInputPriority.value,
     false
   );
+  // if (taskForm.checkValidity()) {
+  // } else {
+  //   console.log(`not pass`);
+  // }
 }
 
 function renderTask(task) {

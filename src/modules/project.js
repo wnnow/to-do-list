@@ -219,8 +219,8 @@ function renderProjectContent(e) {
 
   projectContentContainer.classList.add("project-content-container");
   projectContentContainer.appendChild(createProjectHeaderContent(e));
-  projectContentContainer.appendChild(createTaskContainer());
   projectContentContainer.appendChild(createShowTaskFormBtn());
+  projectContentContainer.appendChild(createTaskContainer());
   contentContainer.appendChild(projectContentContainer);
 }
 
@@ -240,9 +240,9 @@ function createTaskContainer() {
 
 function createShowTaskFormBtn() {
   const showTaskFormBtn = document.createElement("button");
-  showTaskFormBtn.setAttribute("type", "click");
+  showTaskFormBtn.setAttribute("type", "submit");
   showTaskFormBtn.classList.add("show-task-form-btn");
-  showTaskFormBtn.textContent = "Show Task";
+  showTaskFormBtn.textContent = "Add Task";
   showTaskFormBtn.addEventListener("click", (e) => {
     toggleTaskForm();
   });
@@ -283,12 +283,23 @@ function clearTaskContainer() {
   }
 }
 
+function createAllTaskHeader() {
+  const contentContainer = document.querySelector(".content-container");
+  console.log(contentContainer);
+  const taskContainer = document.createElement("ul");
+  const projectHeaderName = document.createElement("div");
+  taskContainer.classList.add("task-container");
+  projectHeaderName.classList.add("project-header-name");
+  projectHeaderName.textContent = "All Task";
+  contentContainer.appendChild(projectHeaderName);
+  contentContainer.appendChild(taskContainer);
+}
+
 const allTaskBtn = document.querySelector(".all-task");
 
 allTaskBtn.addEventListener("click", (e) => {
-  const projectHeaderName = document.querySelector(".project-header-name");
-  projectHeaderName.textContent = "All Task";
-  clearTaskContainer();
+  clearContentContainer();
+  createAllTaskHeader();
   renderDefaultAllTaskContent();
 });
 

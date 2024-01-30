@@ -154,9 +154,23 @@ button {
   margin-bottom: 16px;
 }
 
+.task-container {
+  margin-top: 16px;
+}
+
 .task-content {
   display: flex;
   gap: 32px;
+  align-items: center;
+  margin-bottom: 16px;
+  border: 1px solid gray;
+  padding: 4px 8px;
+  border-radius: 10px;
+}
+
+.task-checkbox {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
