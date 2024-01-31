@@ -121,7 +121,25 @@ button {
   margin-bottom: 32px;
 }
 
-.project-nav-container,
+.project-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgb(196, 196, 196);
+}
+
+#show-project-form-btn {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .project-list-container {
   display: flex;
   flex-direction: column;
@@ -132,14 +150,16 @@ button {
   gap: 16px;
 }
 
-.project-nav-item {
+.project-nav-item,
+.navbar-container > div {
   padding: 8px 16px;
   border-radius: 10px;
   cursor: pointer;
 }
 
-.project-nav-item:hover {
-  background-color: gray;
+.project-nav-item:hover,
+.navbar-container > div:hover {
+  background-color: rgb(196, 196, 196);
 }
 
 /* content */
@@ -159,8 +179,9 @@ button {
 }
 
 .task-content {
-  display: flex;
-  gap: 32px;
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr 2fr 1fr;
+  gap: 16px;
   align-items: center;
   margin-bottom: 16px;
   border: 1px solid gray;
@@ -168,6 +189,11 @@ button {
   border-radius: 10px;
 }
 
+.task-content > div {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .task-checkbox {
   display: flex;
   justify-content: center;

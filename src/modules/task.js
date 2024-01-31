@@ -84,10 +84,6 @@ function createTask(e) {
     taskInputPriority.value,
     false
   );
-  // if (taskForm.checkValidity()) {
-  // } else {
-  //   console.log(`not pass`);
-  // }
 }
 
 function renderTask(task) {
@@ -129,11 +125,18 @@ function renderTask(task) {
   taskContainer.appendChild(taskList);
 }
 
+function renderNewTask() {
+  const projectId = +document.querySelector(".project-header-name").dataset
+    .index;
+  renderTask(projects[projectId].tasks[projects[projectId].tasks.length - 1]);
+}
+
 addTaskBtn.addEventListener("click", (e) => {
   console.log("add");
   createTask();
   toggleTaskForm();
   clearTaskFormValue();
+  renderNewTask();
 });
 
 export { Task, toggleTaskForm, clearTaskFormValue, renderTask };
