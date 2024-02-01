@@ -5,6 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  background: none;
 }
 
 :root {
@@ -78,10 +80,13 @@ input {
 }
 
 button {
-  padding: 4px 8px;
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 100px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -184,13 +189,17 @@ button {
 
 .task-content {
   display: grid;
-  grid-template-columns: 1fr 3fr 3fr 2fr 1fr;
+  grid-template-columns: 1fr 3fr 3fr 2fr 1fr 1fr;
   gap: 16px;
   align-items: center;
   margin-bottom: 16px;
   border: 1px solid gray;
   padding: 4px 8px;
   border-radius: 10px;
+  cursor: pointer;
+}
+.task-content:hover {
+  background-color: aliceblue;
 }
 
 .task-content > div {
@@ -202,6 +211,16 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.high-priority {
+  border-left: 15px solid #d04848;
+}
+.medium-priority {
+  border-left: 15px solid #ffe25f;
+}
+.low-priority {
+  border-left: 15px solid #95fd92;
 }
 
 /* footer */

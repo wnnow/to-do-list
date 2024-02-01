@@ -87,7 +87,6 @@ function createTask(e) {
 }
 
 function renderTask(task) {
-  console.log("run renderTask");
   const taskContainer = document.querySelector(".task-container");
   const taskList = document.createElement("li");
   const taskCheckBoxContainer = document.createElement("div");
@@ -96,7 +95,16 @@ function renderTask(task) {
   const taskDes = document.createElement("div");
   const taskDuedate = document.createElement("div");
   const taskPriority = document.createElement("div");
+  const taskDetailContainer = document.querySelector(
+    "#task-popup-detail-container"
+  );
+  const taskShowDetailBtn = document.createElement("button");
+  const taskShowDetailBtnSpan = document.createElement("span");
 
+  taskShowDetailBtn.setAttribute("type", "click");
+  taskShowDetailBtnSpan.textContent = "info";
+  taskShowDetailBtnSpan.classList.add("material-symbols-outlined");
+  taskShowDetailBtn.appendChild(taskShowDetailBtnSpan);
   taskContainer.classList.add("task-container");
   taskList.classList.add("task-content");
   taskList.dataset.projectIndex = task.projectId;
@@ -114,7 +122,19 @@ function renderTask(task) {
   taskName.textContent = task.name;
   taskDes.textContent = task.description;
   taskDuedate.textContent = task.duedate;
-  taskPriority.textContent = task.priority;
+
+  if (task.priority === "1") {
+    taskPriority.textContent = "High";
+    taskList.classList.add("high-priority");
+  }
+  if (task.priority === "2") {
+    taskPriority.textContent = "Medium";
+    taskList.classList.add("medium-priority");
+  }
+  if (task.priority === "3") {
+    taskPriority.textContent = "Low";
+    taskList.classList.add("low-priority");
+  }
 
   taskCheckBoxContainer.appendChild(taskStatus);
   taskList.appendChild(taskCheckBoxContainer);
@@ -122,6 +142,11 @@ function renderTask(task) {
   taskList.appendChild(taskDes);
   taskList.appendChild(taskDuedate);
   taskList.appendChild(taskPriority);
+  taskList.appendChild(taskShowDetailBtn);
+  taskShowDetailBtn.addEventListener("click", (e) => {
+    // console.log(e.target.dataset);
+    taskDetailContainer.style.display = "block";
+  });
   taskContainer.appendChild(taskList);
 }
 
