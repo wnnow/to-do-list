@@ -7,7 +7,7 @@ import {
   projects,
   renderProjectNavbar,
 } from "./project.js";
-
+import { renderTaskDetailPopup } from "./taskDetailPopup.js";
 class Task {
   constructor(projectId, id, name, description, duedate, priority, status) {
     this.projectId = projectId;
@@ -22,11 +22,10 @@ class Task {
 
 // add task
 
-const taskForm = document.querySelector("#task-form");
-// const showTaskFormBtn = document.querySelector(".show-task-form-btn");
 const cancelTaskFormBtn = document.querySelector("#cancel-task-btn");
 
 function toggleTaskForm() {
+  const taskForm = document.querySelector("#task-form");
   if (taskForm.style.display === "" || taskForm.style.display === "none") {
     taskForm.style.display = "block";
   } else if (taskForm.style.display === "block") {
@@ -46,21 +45,13 @@ function clearTaskFormValue(e) {
   taskInputPriority.value = "1";
 }
 
-// showTaskFormBtn.addEventListener("click", (e) => {
-//   // e.preventDefault();
-//   console.log("Show task");
-//   toggleTaskForm();
-// });
-
 cancelTaskFormBtn.addEventListener("click", (e) => {
-  console.log("cancel task");
   toggleTaskForm();
 });
 
 const addTaskBtn = document.querySelector("#add-task-btn");
 
 function createTask(e) {
-  const taskForm = document.querySelector("#task-form");
   const taskInputName = document.querySelector("#task_name");
   const taskInputDesciption = document.querySelector("#task_description");
   const taskInputDuedate = document.querySelector("#task_due_date");
@@ -144,7 +135,7 @@ function renderTask(task) {
   taskList.appendChild(taskPriority);
   taskList.appendChild(taskShowDetailBtn);
   taskShowDetailBtn.addEventListener("click", (e) => {
-    // console.log(e.target.dataset);
+    renderTaskDetailPopup(e);
     taskDetailContainer.style.display = "block";
   });
   taskContainer.appendChild(taskList);
@@ -157,7 +148,6 @@ function renderNewTask() {
 }
 
 addTaskBtn.addEventListener("click", (e) => {
-  console.log("add");
   createTask();
   toggleTaskForm();
   clearTaskFormValue();

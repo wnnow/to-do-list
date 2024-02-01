@@ -95,6 +95,24 @@ button {
   }
 }
 
+.show-task-form-btn,
+#add-project-btn,
+#cancel-project-btn,
+#add-task-btn,
+#cancel-task-btn {
+  width: 100px;
+  background-color: rgb(245, 245, 245);
+  border-radius: 10px;
+  padding: 4px 8px;
+}
+
+.show-task-form-btn:hover,
+#add-project-btn:hover,
+#cancel-project-btn:hover,
+#add-task-btn:hover,
+#cancel-task-btn:hover {
+  background-color: rgb(194, 194, 194);
+}
 /* header section */
 
 .header-wrapper {
@@ -275,6 +293,7 @@ footer {
 }
 
 #task-popup-detail-container {
+  display: none;
   width: 500px;
   position: absolute;
   top: 50%;
