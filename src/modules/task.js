@@ -8,6 +8,7 @@ import {
   renderProjectNavbar,
 } from "./project.js";
 import { renderTaskDetailPopup } from "./taskDetailPopup.js";
+import { toggleTaskStatus } from "./toggleTaskStatus.js";
 class Task {
   constructor(projectId, id, name, description, duedate, priority, status) {
     this.projectId = projectId;
@@ -134,6 +135,10 @@ function renderTask(task) {
   taskList.appendChild(taskDuedate);
   taskList.appendChild(taskPriority);
   taskList.appendChild(taskShowDetailBtn);
+
+  taskStatus.addEventListener("click", (e) => {
+    toggleTaskStatus(e);
+  });
   taskShowDetailBtn.addEventListener("click", (e) => {
     renderTaskDetailPopup(e);
     taskDetailContainer.style.display = "block";

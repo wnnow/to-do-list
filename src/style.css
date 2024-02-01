@@ -241,6 +241,11 @@ button {
   border-left: 15px solid #95fd92;
 }
 
+.task-status-true {
+  text-decoration-line: line-through;
+  background-color: var(--nav-bg-color);
+}
+
 /* footer */
 footer {
   margin-top: auto;
