@@ -214,12 +214,17 @@ function renderProjectContent(e) {
   e.stopPropagation();
   const contentContainer = document.querySelector(".content-container");
   const projectContentContainer = document.createElement("div");
-
+  const projectBtnWrapper = document.createElement("div");
   clearContentContainer();
+  projectBtnWrapper.classList.add("project-btn-wrapper");
 
+  projectBtnWrapper.appendChild(createShowTaskFormBtn());
+  projectBtnWrapper.appendChild(createRemoveProjectBtn());
   projectContentContainer.classList.add("project-content-container");
   projectContentContainer.appendChild(createProjectHeaderContent(e));
-  projectContentContainer.appendChild(createShowTaskFormBtn());
+  projectContentContainer.appendChild(projectBtnWrapper);
+  // projectContentContainer.appendChild(createShowTaskFormBtn());
+  // projectContentContainer.appendChild(createRemoveProjectBtn());
   projectContentContainer.appendChild(createTaskContainer());
   contentContainer.appendChild(projectContentContainer);
 }
@@ -247,6 +252,17 @@ function createShowTaskFormBtn() {
     toggleTaskForm();
   });
   return showTaskFormBtn;
+}
+
+function createRemoveProjectBtn() {
+  const removeProjectFormBtn = document.createElement("button");
+  removeProjectFormBtn.setAttribute("type", "submit");
+  removeProjectFormBtn.classList.add("edit-project-form-btn");
+  removeProjectFormBtn.textContent = "Delete Project";
+  removeProjectFormBtn.addEventListener("click", (e) => {
+    console.log("Edit Bro!");
+  });
+  return removeProjectFormBtn;
 }
 
 function clearContentContainer() {
@@ -285,7 +301,6 @@ function clearTaskContainer() {
 
 function createAllTaskHeader() {
   const contentContainer = document.querySelector(".content-container");
-  console.log(contentContainer);
   const taskContainer = document.createElement("ul");
   const projectHeaderName = document.createElement("div");
   taskContainer.classList.add("task-container");

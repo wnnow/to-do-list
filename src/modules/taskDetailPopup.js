@@ -31,13 +31,13 @@ function renderTaskDetailPopup(e) {
   );
   taskDetailPopupHeaderText.textContent = `${projects[projectId].tasks[taskId].name}`;
   taskDetailPopupProjectName.textContent = `${projects[projectId].name}`;
-  if (projects[projectId].tasks[taskId].priority === "1") {
+  if (projects[projectId].tasks[taskId].priority === "3") {
     taskDetailPopupPriority.textContent = "High";
   }
   if (projects[projectId].tasks[taskId].priority === "2") {
     taskDetailPopupPriority.textContent = "Medium";
   }
-  if (projects[projectId].tasks[taskId].priority === "3") {
+  if (projects[projectId].tasks[taskId].priority === "1") {
     taskDetailPopupPriority.textContent = "Low";
   }
 
@@ -45,4 +45,17 @@ function renderTaskDetailPopup(e) {
   taskDetailPopupDescription.textContent = `${projects[projectId].tasks[taskId].description}`;
 }
 
-export { addEventListenerCloseTaskDetailBtn, renderTaskDetailPopup };
+function addEventListenerRenderTaskDetailPopup(button) {
+  const taskDetailContainer = document.querySelector(
+    "#task-popup-detail-container"
+  );
+  button.addEventListener("click", (e) => {
+    renderTaskDetailPopup(e);
+    taskDetailContainer.style.display = "block";
+  });
+}
+export {
+  addEventListenerCloseTaskDetailBtn,
+  renderTaskDetailPopup,
+  addEventListenerRenderTaskDetailPopup,
+};

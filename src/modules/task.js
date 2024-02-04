@@ -1,14 +1,7 @@
 // this is task.js
-import {
-  Project,
-  createProject,
-  deleteProject,
-  updateProject,
-  projects,
-  renderProjectNavbar,
-} from "./project.js";
-import { renderTaskDetailPopup } from "./taskDetailPopup.js";
-import { toggleTaskStatus } from "./toggleTaskStatus.js";
+import { projects } from "./project.js";
+import { addEventListenerRenderTaskDetailPopup } from "./taskDetailPopup.js";
+import { addEventListenerToggleTaskStatus } from "./toggleTaskStatus.js";
 class Task {
   constructor(projectId, id, name, description, duedate, priority, status) {
     this.projectId = projectId;
@@ -20,10 +13,6 @@ class Task {
     this.status = status;
   }
 }
-
-// add task
-
-const cancelTaskFormBtn = document.querySelector("#cancel-task-btn");
 
 function toggleTaskForm() {
   const taskForm = document.querySelector("#task-form");
@@ -45,12 +34,37 @@ function clearTaskFormValue(e) {
   taskInputDuedate.value = "";
   taskInputPriority.value = "1";
 }
+// const cancelTaskFormBtn = document.querySelector("#cancel-task-btn");
+// cancelTaskFormBtn.addEventListener("click", (e) => {
+//   toggleTaskForm();
+// });
+// const addTaskBtn = document.querySelector("#add-task-btn");
 
-cancelTaskFormBtn.addEventListener("click", (e) => {
-  toggleTaskForm();
-});
+// addTaskBtn.addEventListener("click", (e) => {
+//   createTask();
+//   toggleTaskForm();
+//   clearTaskFormValue();
+//   renderNewTask();
+// });
 
-const addTaskBtn = document.querySelector("#add-task-btn");
+function addEventListenerAddTaskBtn(button) {
+  button.addEventListener("click", (e) => {
+    createTask();
+    toggleTaskForm();
+    clearTaskFormValue();
+    renderNewTask();
+  });
+}
+
+addEventListenerAddTaskBtn(document.querySelector("#add-task-btn"));
+
+function addEventListenerCancelTaskForm(button) {
+  button.addEventListener("click", (e) => {
+    toggleTaskForm();
+    clearTaskFormValue();
+  });
+}
+addEventListenerCancelTaskForm(document.querySelector("#cancel-task-btn"));
 
 function createTask(e) {
   const taskInputName = document.querySelector("#task_name");
@@ -87,16 +101,32 @@ function renderTask(task) {
   const taskDes = document.createElement("div");
   const taskDuedate = document.createElement("div");
   const taskPriority = document.createElement("div");
-  const taskDetailContainer = document.querySelector(
-    "#task-popup-detail-container"
-  );
+  // const taskDetailContainer = document.querySelector(
+  //   "#task-popup-detail-container"
+  // );
   const taskShowDetailBtn = document.createElement("button");
   const taskShowDetailBtnSpan = document.createElement("span");
+  const taskEditDetailBtn = document.createElement("button");
+  const taskEditDetailBtnSpan = document.createElement("span");
+  const taskDeleteBtn = document.createElement("button");
+  const taskDeleteBtnSpan = document.createElement("span");
 
   taskShowDetailBtn.setAttribute("type", "click");
+  taskEditDetailBtn.setAttribute("type", "click");
+  taskDeleteBtn.setAttribute("type", "click");
+
   taskShowDetailBtnSpan.textContent = "info";
+  taskEditDetailBtnSpan.textContent = "edit";
+  taskDeleteBtnSpan.textContent = "close";
+
   taskShowDetailBtnSpan.classList.add("material-symbols-outlined");
+  taskEditDetailBtnSpan.classList.add("material-symbols-outlined");
+  taskDeleteBtnSpan.classList.add("material-symbols-outlined");
+
   taskShowDetailBtn.appendChild(taskShowDetailBtnSpan);
+  taskEditDetailBtn.appendChild(taskEditDetailBtnSpan);
+  taskDeleteBtn.appendChild(taskDeleteBtnSpan);
+
   taskContainer.classList.add("task-container");
   taskList.classList.add("task-content");
   taskList.dataset.projectIndex = task.projectId;
@@ -109,23 +139,25 @@ function renderTask(task) {
   taskDes.classList.add("task-description");
   taskDuedate.classList.add("task-duedate");
   taskPriority.classList.add("task-priority");
-
+  if (task.status === true) {
+    taskList.classList.add("task-status-true");
+  }
   taskStatus.checked = task.status;
   taskName.textContent = task.name;
   taskDes.textContent = task.description;
   taskDuedate.textContent = task.duedate;
 
   if (task.priority === "1") {
-    taskPriority.textContent = "High";
-    taskList.classList.add("high-priority");
+    taskPriority.textContent = "Low";
+    taskList.classList.add("low-priority");
   }
   if (task.priority === "2") {
     taskPriority.textContent = "Medium";
     taskList.classList.add("medium-priority");
   }
   if (task.priority === "3") {
-    taskPriority.textContent = "Low";
-    taskList.classList.add("low-priority");
+    taskPriority.textContent = "High";
+    taskList.classList.add("high-priority");
   }
 
   taskCheckBoxContainer.appendChild(taskStatus);
@@ -135,14 +167,20 @@ function renderTask(task) {
   taskList.appendChild(taskDuedate);
   taskList.appendChild(taskPriority);
   taskList.appendChild(taskShowDetailBtn);
+  taskList.appendChild(taskEditDetailBtn);
+  taskList.appendChild(taskDeleteBtn);
 
-  taskStatus.addEventListener("click", (e) => {
-    toggleTaskStatus(e);
-  });
-  taskShowDetailBtn.addEventListener("click", (e) => {
-    renderTaskDetailPopup(e);
-    taskDetailContainer.style.display = "block";
-  });
+  // taskStatus.addEventListener("click", (e) => {
+  //   toggleTaskStatus(e);
+  // });
+  // taskShowDetailBtn.addEventListener("click", (e) => {
+  //   renderTaskDetailPopup(e);
+  //   taskDetailContainer.style.display = "block";
+  // });
+
+  addEventListenerToggleTaskStatus(taskStatus);
+  addEventListenerRenderTaskDetailPopup(taskShowDetailBtn);
+
   taskContainer.appendChild(taskList);
 }
 
@@ -151,12 +189,5 @@ function renderNewTask() {
     .index;
   renderTask(projects[projectId].tasks[projects[projectId].tasks.length - 1]);
 }
-
-addTaskBtn.addEventListener("click", (e) => {
-  createTask();
-  toggleTaskForm();
-  clearTaskFormValue();
-  renderNewTask();
-});
 
 export { Task, toggleTaskForm, clearTaskFormValue, renderTask };
