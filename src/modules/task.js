@@ -2,6 +2,7 @@
 import { projects } from "./project.js";
 import { addEventListenerRenderTaskDetailPopup } from "./taskDetailPopup.js";
 import { addEventListenerToggleTaskStatus } from "./toggleTaskStatus.js";
+import { addEventListenerRemoveTask } from "./removeTask.js";
 class Task {
   constructor(projectId, id, name, description, duedate, priority, status) {
     this.projectId = projectId;
@@ -34,18 +35,6 @@ function clearTaskFormValue(e) {
   taskInputDuedate.value = "";
   taskInputPriority.value = "1";
 }
-// const cancelTaskFormBtn = document.querySelector("#cancel-task-btn");
-// cancelTaskFormBtn.addEventListener("click", (e) => {
-//   toggleTaskForm();
-// });
-// const addTaskBtn = document.querySelector("#add-task-btn");
-
-// addTaskBtn.addEventListener("click", (e) => {
-//   createTask();
-//   toggleTaskForm();
-//   clearTaskFormValue();
-//   renderNewTask();
-// });
 
 function addEventListenerAddTaskBtn(button) {
   button.addEventListener("click", (e) => {
@@ -77,8 +66,6 @@ function createTask(e) {
       project.id ===
       +document.querySelector(".project-header-name").dataset.index
   );
-  // const projectTargetIndex = +document.querySelector(".project-header-name")
-  //   .dataset.index;
 
   if (
     taskInputName.value === "" ||
@@ -106,9 +93,6 @@ function renderTask(task) {
   const taskDes = document.createElement("div");
   const taskDuedate = document.createElement("div");
   const taskPriority = document.createElement("div");
-  // const taskDetailContainer = document.querySelector(
-  //   "#task-popup-detail-container"
-  // );
   const taskShowDetailBtn = document.createElement("button");
   const taskShowDetailBtnSpan = document.createElement("span");
   const taskEditDetailBtn = document.createElement("button");
@@ -175,23 +159,14 @@ function renderTask(task) {
   taskList.appendChild(taskEditDetailBtn);
   taskList.appendChild(taskDeleteBtn);
 
-  // taskStatus.addEventListener("click", (e) => {
-  //   toggleTaskStatus(e);
-  // });
-  // taskShowDetailBtn.addEventListener("click", (e) => {
-  //   renderTaskDetailPopup(e);
-  //   taskDetailContainer.style.display = "block";
-  // });
-
   addEventListenerToggleTaskStatus(taskStatus);
   addEventListenerRenderTaskDetailPopup(taskShowDetailBtn);
+  addEventListenerRemoveTask(taskDeleteBtn);
 
   taskContainer.appendChild(taskList);
 }
 
 function renderNewTask() {
-  // const projectId = +document.querySelector(".project-header-name").dataset
-  //   .index;
   const projectIndex = projects.findIndex(
     (project) =>
       project.id ===

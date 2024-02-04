@@ -275,9 +275,17 @@ function clearContentContainer() {
 }
 
 function renderProjectTask(e) {
-  const projectIndex = projects.findIndex(
-    (project) => project.id === +e.target.dataset.index
-  );
+  let projectIndex;
+  if (typeof e === "number") {
+    projectIndex = projects.findIndex((project) => project.id === e);
+  } else {
+    projectIndex = projects.findIndex(
+      (project) => project.id === +e.target.dataset.index
+    );
+  }
+  // const projectIndex = projects.findIndex(
+  //   (project) => project.id === +e.target.dataset.index
+  // );
   // const projectId = +e.target.dataset.index;
   const project = projects[projectIndex];
 
@@ -334,4 +342,5 @@ export {
   projects,
   renderProjectNavbar,
   reRenderAllTaskContent,
+  renderProjectTask,
 };
