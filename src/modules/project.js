@@ -7,7 +7,10 @@ import {
   renderTask,
 } from "./task.js";
 
-import { addEventListenerRemoveProject } from "./removeProject.js";
+import {
+  addEventListenerRemoveProject,
+  toggleDelProjectPopup,
+} from "./removeProject.js";
 
 let projects = [];
 class Project {
@@ -111,7 +114,7 @@ function setProjectLocalstorage() {
 
 function loadProjectsFromLocalStorage() {
   const storeProjects = JSON.parse(localStorage.getItem("projectCollection"));
-  console.log(storeProjects);
+
   storeProjects.forEach((storeProject, index) => {
     const project = new Project(storeProject.name);
     project.id = storeProject.id;
@@ -229,7 +232,7 @@ function createProjectHeaderContent(e) {
   const projectIndex = projects.findIndex(
     (project) => project.id === +e.target.dataset.index
   );
-  console.log("🚀 ~ createProjectHeaderContent ~ projectIndex:", projectIndex);
+
   projectHeaderName.textContent = `${projects[projectIndex].name}`;
   projectHeaderName.dataset.index = `${e.target.dataset.index}`;
   projectHeaderName.classList.add("project-header-name");
@@ -258,7 +261,8 @@ function createRemoveProjectBtn() {
   removeProjectFormBtn.setAttribute("type", "submit");
   removeProjectFormBtn.id = "edit-project-form-btn";
   removeProjectFormBtn.textContent = "Delete Project";
-  addEventListenerRemoveProject(removeProjectFormBtn);
+  removeProjectFormBtn.addEventListener("click", toggleDelProjectPopup);
+  // addEventListenerRemoveProject(removeProjectFormBtn);
   return removeProjectFormBtn;
 }
 
@@ -312,10 +316,23 @@ function createAllTaskHeader() {
 
 const allTaskBtn = document.querySelector(".all-task");
 
-allTaskBtn.addEventListener("click", (e) => {
+function reRenderAlltaskContent() {
   clearContentContainer();
   createAllTaskHeader();
   renderDefaultAllTaskContent();
+}
+allTaskBtn.addEventListener("click", (e) => {
+  reRenderAlltaskContent();
+  // clearContentContainer();
+  // createAllTaskHeader();
+  // renderDefaultAllTaskContent();
 });
 
-export { Project, createProject, updateProject, projects, renderProjectNavbar };
+export {
+  Project,
+  createProject,
+  updateProject,
+  projects,
+  renderProjectNavbar,
+  reRenderAlltaskContent,
+};

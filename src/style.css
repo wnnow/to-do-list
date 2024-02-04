@@ -95,16 +95,26 @@ button {
   }
 }
 
-.project-btn-wrapper {
+.project-btn-wrapper,
+.del-project-popup-btn-wrapper {
   display: flex;
-  gap: 16px;
+  gap: 32px;
+}
+.del-project-popup-header {
+  text-align: center;
+  margin-bottom: 16px;
 }
 
+.del-project-popup-btn-wrapper {
+  justify-content: center;
+  align-items: center;
+}
 .show-task-form-btn,
 #add-project-btn,
 #cancel-project-btn,
 #add-task-btn,
-#cancel-task-btn {
+#cancel-task-btn,
+.del-project-popup-btn-wrapper > button {
   width: 100px;
   background-color: rgb(245, 245, 245);
   border-radius: 10px;
@@ -116,7 +126,8 @@ button {
 #cancel-project-btn:hover,
 #add-task-btn:hover,
 #cancel-task-btn:hover,
-#edit-project-form-btn:hover {
+#edit-project-form-btn:hover,
+.del-project-popup-btn-wrapper > button:hover {
   background-color: rgb(194, 194, 194);
 }
 
@@ -205,7 +216,7 @@ button {
 
 /* content */
 .content-container {
-  border: 1px solid gray;
+  border: 1px solid #dbdbdb;
   padding: 1rem;
   flex: 1;
 }
@@ -287,7 +298,8 @@ footer {
 }
 
 /* task form */
-#task-form {
+#task-form,
+.del-project-popup {
   display: none;
   position: fixed;
   top: 50%;

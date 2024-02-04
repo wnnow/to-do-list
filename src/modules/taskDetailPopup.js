@@ -12,13 +12,10 @@ function addEventListenerCloseTaskDetailBtn() {
 
 function renderTaskDetailPopup(e) {
   const taskContent = e.target.parentNode.parentNode;
-  console.log("🚀 ~ renderTaskDetailPopup ~ taskContent:", taskContent);
 
-  console.log(+taskContent.dataset.taskIndex);
   const projectId = projects.findIndex(
     (project) => project.id === +taskContent.dataset.projectIndex
   );
-  console.log("🚀 ~ projectId ~ projectId:", projectId);
 
   const taskId = projects[projectId].tasks.findIndex(
     (task) => task.id === +taskContent.dataset.taskIndex
