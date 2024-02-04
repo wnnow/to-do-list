@@ -2,8 +2,13 @@ import { projects, updateProject } from "./project.js";
 
 function toggleTaskStatus(e) {
   const taskContentContainer = e.target.parentNode.parentNode;
-  const projectId = taskContentContainer.dataset.projectIndex;
-  const taskId = taskContentContainer.dataset.taskIndex;
+
+  const projectId = projects.findIndex(
+    (project) => project.id === +taskContentContainer.dataset.projectIndex
+  );
+  const taskId = projects[projectId].tasks.findIndex(
+    (task) => task.id === +taskContentContainer.dataset.taskIndex
+  );
 
   projects[projectId].tasks[taskId].status = e.target.checked;
   updateProject();

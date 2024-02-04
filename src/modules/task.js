@@ -72,8 +72,13 @@ function createTask(e) {
   const taskInputDuedate = document.querySelector("#task_due_date");
   const taskInputPriority = document.querySelector("#task_priority");
 
-  const projectTargetIndex = +document.querySelector(".project-header-name")
-    .dataset.index;
+  const projectTargetIndex = projects.findIndex(
+    (project) =>
+      project.id ===
+      +document.querySelector(".project-header-name").dataset.index
+  );
+  // const projectTargetIndex = +document.querySelector(".project-header-name")
+  //   .dataset.index;
 
   if (
     taskInputName.value === "" ||
@@ -185,9 +190,16 @@ function renderTask(task) {
 }
 
 function renderNewTask() {
-  const projectId = +document.querySelector(".project-header-name").dataset
-    .index;
-  renderTask(projects[projectId].tasks[projects[projectId].tasks.length - 1]);
+  // const projectId = +document.querySelector(".project-header-name").dataset
+  //   .index;
+  const projectIndex = projects.findIndex(
+    (project) =>
+      project.id ===
+      +document.querySelector(".project-header-name").dataset.index
+  );
+  renderTask(
+    projects[projectIndex].tasks[projects[projectIndex].tasks.length - 1]
+  );
 }
 
 export { Task, toggleTaskForm, clearTaskFormValue, renderTask };

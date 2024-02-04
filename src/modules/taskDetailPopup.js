@@ -11,8 +11,18 @@ function addEventListenerCloseTaskDetailBtn() {
 }
 
 function renderTaskDetailPopup(e) {
-  const projectId = e.target.parentNode.parentNode.dataset.projectIndex;
-  const taskId = e.target.parentNode.parentNode.dataset.taskIndex;
+  const taskContent = e.target.parentNode.parentNode;
+  console.log("🚀 ~ renderTaskDetailPopup ~ taskContent:", taskContent);
+
+  console.log(+taskContent.dataset.taskIndex);
+  const projectId = projects.findIndex(
+    (project) => project.id === +taskContent.dataset.projectIndex
+  );
+  console.log("🚀 ~ projectId ~ projectId:", projectId);
+
+  const taskId = projects[projectId].tasks.findIndex(
+    (task) => task.id === +taskContent.dataset.taskIndex
+  );
   const taskDetailPopupHeaderText = document.querySelector(
     "#task-popup-detail-header-text"
   );

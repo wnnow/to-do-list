@@ -7,6 +7,8 @@ import {
   renderTask,
 } from "./task.js";
 
+import { addEventListenerRemoveProject } from "./removeProject.js";
+
 let projects = [];
 class Project {
   static #id = 0;
@@ -127,13 +129,6 @@ function createProject(name) {
   updateProject();
 }
 
-function deleteProject(projectId) {
-  let projectIndex = projects.findIndex((project) => project.id === projectId);
-
-  projects.splice(projectIndex, 1);
-  updateProject();
-}
-
 function updateProject() {
   localStorage.setItem("projectCollection", JSON.stringify(projects));
 }
@@ -231,7 +226,11 @@ function renderProjectContent(e) {
 
 function createProjectHeaderContent(e) {
   const projectHeaderName = document.createElement("div");
-  projectHeaderName.textContent = `${projects[e.target.dataset.index].name}`;
+  const projectIndex = projects.findIndex(
+    (project) => project.id === +e.target.dataset.index
+  );
+  console.log("🚀 ~ createProjectHeaderContent ~ projectIndex:", projectIndex);
+  projectHeaderName.textContent = `${projects[projectIndex].name}`;
   projectHeaderName.dataset.index = `${e.target.dataset.index}`;
   projectHeaderName.classList.add("project-header-name");
   return projectHeaderName;
@@ -257,11 +256,9 @@ function createShowTaskFormBtn() {
 function createRemoveProjectBtn() {
   const removeProjectFormBtn = document.createElement("button");
   removeProjectFormBtn.setAttribute("type", "submit");
-  removeProjectFormBtn.classList.add("edit-project-form-btn");
+  removeProjectFormBtn.id = "edit-project-form-btn";
   removeProjectFormBtn.textContent = "Delete Project";
-  removeProjectFormBtn.addEventListener("click", (e) => {
-    console.log("Edit Bro!");
-  });
+  addEventListenerRemoveProject(removeProjectFormBtn);
   return removeProjectFormBtn;
 }
 
@@ -274,8 +271,11 @@ function clearContentContainer() {
 }
 
 function renderProjectTask(e) {
-  const projectId = +e.target.dataset.index;
-  const project = projects[projectId];
+  const projectIndex = projects.findIndex(
+    (project) => project.id === +e.target.dataset.index
+  );
+  // const projectId = +e.target.dataset.index;
+  const project = projects[projectIndex];
 
   project.tasks.forEach((task) => {
     renderTask(task);
@@ -318,11 +318,4 @@ allTaskBtn.addEventListener("click", (e) => {
   renderDefaultAllTaskContent();
 });
 
-export {
-  Project,
-  createProject,
-  deleteProject,
-  updateProject,
-  projects,
-  renderProjectNavbar,
-};
+export { Project, createProject, updateProject, projects, renderProjectNavbar };

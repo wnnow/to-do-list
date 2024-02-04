@@ -116,11 +116,11 @@ button {
 #cancel-project-btn:hover,
 #add-task-btn:hover,
 #cancel-task-btn:hover,
-.edit-project-form-btn:hover {
+#edit-project-form-btn:hover {
   background-color: rgb(194, 194, 194);
 }
 
-.edit-project-form-btn {
+#edit-project-form-btn {
   width: 125px;
   background-color: rgb(245, 245, 245);
   border-radius: 10px;
