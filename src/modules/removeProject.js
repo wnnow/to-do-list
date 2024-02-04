@@ -1,6 +1,5 @@
-import { projects, updateProject, reRenderAlltaskContent } from "./project.js";
-import { toggleTaskForm } from "./task.js";
-let isDelProject = false;
+import { projects, updateProject, reRenderAllTaskContent } from "./project.js";
+
 function deleteProject(projectId) {
   let projectIndex = projects.findIndex((project) => project.id === projectId);
 
@@ -43,22 +42,31 @@ function addEventListenerDelProjectYesBtn() {
   delProjectYesBtn.addEventListener("click", (e) => {
     e.preventDefault();
     toggleDelProjectPopup();
-    isDelProject = true;
+
     removeProject();
-    reRenderAlltaskContent();
-    console.log(isDelProject);
+    removeProjectFromDOM();
+    reRenderAllTaskContent();
   });
 }
+
 function addEventListenerDelProjectNoBtn() {
   const delProjectNoBtn = document.querySelector("#del-project-no-btn");
   delProjectNoBtn.addEventListener("click", (e) => {
     e.preventDefault();
     toggleDelProjectPopup();
-    isDelProject = false;
-
-    console.log(isDelProject);
   });
+}
+
+function removeProjectFromDOM() {
+  const projectListNav = document.querySelector(".project-list-container");
+  const projectDatasetIndex = +document.querySelector(".project-header-name")
+    .dataset.index;
+  const projectIndex = Array.from(projectListNav.childNodes).findIndex(
+    (element) => +element.dataset.index === projectDatasetIndex
+  );
+  projectListNav.removeChild(projectListNav.childNodes[projectIndex]);
 }
 addEventListenerDelProjectYesBtn();
 addEventListenerDelProjectNoBtn();
+
 export { removeProject, addEventListenerRemoveProject, toggleDelProjectPopup };

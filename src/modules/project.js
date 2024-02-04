@@ -316,17 +316,16 @@ function createAllTaskHeader() {
 
 const allTaskBtn = document.querySelector(".all-task");
 
-function reRenderAlltaskContent() {
+function reRenderAllTaskContent() {
   clearContentContainer();
   createAllTaskHeader();
   renderDefaultAllTaskContent();
 }
 allTaskBtn.addEventListener("click", (e) => {
-  reRenderAlltaskContent();
-  // clearContentContainer();
-  // createAllTaskHeader();
-  // renderDefaultAllTaskContent();
+  reRenderAllTaskContent();
 });
+
+function clearProjectNavbar() {}
 
 export {
   Project,
@@ -334,5 +333,5 @@ export {
   updateProject,
   projects,
   renderProjectNavbar,
-  reRenderAlltaskContent,
+  reRenderAllTaskContent,
 };
