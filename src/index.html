@@ -49,7 +49,6 @@
           <div class="project-header-name">All Task</div>
           <ul class="task-container"></ul>
         </div>
-        <!-- <button type="click" class="show-task-form-btn">Add Task</button> -->
       </div>
     </main>
     <form class="project-form-container" id="project-form">
@@ -139,8 +138,14 @@
     </div>
     <form class="edit-project-popup">
       <div class="edit-project-input-wrapper">
-        <label for="project_name">Project Name</label>
-        <input type="text" required />
+        <label for="edit_project_name">Project Name</label>
+        <input
+          type="text"
+          id="edit_project_name"
+          name="edit_project_name"
+          maxlength="48"
+          required
+        />
       </div>
       <div class="edit-project-popup-btn-wrapper">
         <button type="click" id="edit-project-submit-btn">Submit</button>

@@ -3,6 +3,9 @@ import { Task, toggleTaskForm, renderTask } from "./task.js";
 import { createDeleteProjectBtn } from "./removeProject.js";
 
 import { setProjectLocalStorage } from "./setProjectLocalStorage.js";
+
+import { createEditProjectBtn } from "./editProjectName.js";
+
 let projects = [];
 class Project {
   static #id = 0;
@@ -178,6 +181,7 @@ function renderProjectContent(e) {
   projectBtnWrapper.classList.add("project-btn-wrapper");
 
   projectBtnWrapper.appendChild(createShowTaskFormBtn());
+  projectBtnWrapper.appendChild(createEditProjectBtn());
   projectBtnWrapper.appendChild(createDeleteProjectBtn());
   projectContentContainer.classList.add("project-content-container");
   projectContentContainer.appendChild(createProjectHeaderContent(e));
@@ -207,7 +211,7 @@ function createTaskContainer() {
 function createShowTaskFormBtn() {
   const showTaskFormBtn = document.createElement("button");
   showTaskFormBtn.setAttribute("type", "submit");
-  showTaskFormBtn.classList.add("show-task-form-btn");
+  showTaskFormBtn.classList.add("project-form-btn");
   showTaskFormBtn.textContent = "Add Task";
   showTaskFormBtn.addEventListener("click", (e) => {
     toggleTaskForm();

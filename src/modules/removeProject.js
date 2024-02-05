@@ -1,13 +1,14 @@
 import { projects, updateProject, reRenderAllTaskContent } from "./project.js";
 
 function createDeleteProjectBtn() {
-  const removeProjectFormBtn = document.createElement("button");
-  removeProjectFormBtn.setAttribute("type", "submit");
-  removeProjectFormBtn.id = "delete-project-form-btn";
-  removeProjectFormBtn.textContent = "Delete Project";
-  removeProjectFormBtn.addEventListener("click", toggleDelProjectPopup);
-  // addEventListenerRemoveProject(removeProjectFormBtn);
-  return removeProjectFormBtn;
+  const deleteProjectFormBtn = document.createElement("button");
+  deleteProjectFormBtn.setAttribute("type", "submit");
+  deleteProjectFormBtn.id = "delete-project-form-btn";
+  deleteProjectFormBtn.classList.add("project-form-btn");
+  deleteProjectFormBtn.textContent = "Delete Project";
+  deleteProjectFormBtn.addEventListener("click", toggleDelProjectPopup);
+  // addEventListenerRemoveProject(deleteProjectFormBtn);
+  return deleteProjectFormBtn;
 }
 function deleteProject(projectId) {
   let projectIndex = projects.findIndex((project) => project.id === projectId);

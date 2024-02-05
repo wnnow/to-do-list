@@ -122,22 +122,24 @@ button {
   padding: 4px 8px;
 }
 
-.show-task-form-btn:hover,
 #add-project-btn:hover,
 #cancel-project-btn:hover,
 #add-task-btn:hover,
 #cancel-task-btn:hover,
-#delete-project-form-btn:hover,
 .del-project-popup-btn-wrapper > button:hover,
 .edit-project-popup-btn-wrapper > button:hover {
   background-color: rgb(194, 194, 194);
 }
 
-#delete-project-form-btn {
+.project-form-btn {
   width: 125px;
   background-color: rgb(245, 245, 245);
   border-radius: 10px;
   padding: 4px 8px;
+}
+
+.project-form-btn:hover {
+  background-color: rgb(194, 194, 194);
 }
 
 /* header section */
@@ -342,7 +344,7 @@ footer {
 .edit-project-input-wrapper {
   margin-bottom: 16px;
 }
-label[for="project_name"] {
+label[for="edit_project_name"] {
   font-size: 1.25rem;
   display: block;
   margin-bottom: 16px;
