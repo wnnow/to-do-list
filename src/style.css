@@ -114,7 +114,8 @@ button {
 #cancel-project-btn,
 #add-task-btn,
 #cancel-task-btn,
-.del-project-popup-btn-wrapper > button {
+.del-project-popup-btn-wrapper > button,
+.edit-project-popup-btn-wrapper > button {
   width: 100px;
   background-color: rgb(245, 245, 245);
   border-radius: 10px;
@@ -126,12 +127,13 @@ button {
 #cancel-project-btn:hover,
 #add-task-btn:hover,
 #cancel-task-btn:hover,
-#edit-project-form-btn:hover,
-.del-project-popup-btn-wrapper > button:hover {
+#delete-project-form-btn:hover,
+.del-project-popup-btn-wrapper > button:hover,
+.edit-project-popup-btn-wrapper > button:hover {
   background-color: rgb(194, 194, 194);
 }
 
-#edit-project-form-btn {
+#delete-project-form-btn {
   width: 125px;
   background-color: rgb(245, 245, 245);
   border-radius: 10px;
@@ -323,7 +325,8 @@ footer {
   margin-bottom: 16px;
 }
 
-#task-popup-detail-container {
+#task-popup-detail-container,
+.edit-project-popup {
   display: none;
   width: 500px;
   position: fixed;
@@ -336,6 +339,19 @@ footer {
   border-radius: 10px;
 }
 
+.edit-project-input-wrapper {
+  margin-bottom: 16px;
+}
+label[for="project_name"] {
+  font-size: 1.25rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.edit-project-popup-btn-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
 #task-popup-detail-header-text {
   font-size: 1.25rem;
 }

@@ -1,17 +1,8 @@
-//  this is project.js
+import { Task, toggleTaskForm, renderTask } from "./task.js";
 
-import {
-  Task,
-  toggleTaskForm,
-  clearTaskFormValue,
-  renderTask,
-} from "./task.js";
+import { createDeleteProjectBtn } from "./removeProject.js";
 
-import {
-  addEventListenerRemoveProject,
-  toggleDelProjectPopup,
-} from "./removeProject.js";
-
+import { setProjectLocalStorage } from "./setProjectLocalStorage.js";
 let projects = [];
 class Project {
   static #id = 0;
@@ -94,37 +85,7 @@ class Project {
   }
 }
 
-function isLocalStorageProjectsEmpty() {
-  if (JSON.parse(localStorage.getItem("projectCollection") === null)) {
-    return true;
-  }
-  return false;
-}
-
-function setProjectLocalstorage() {
-  if (isLocalStorageProjectsEmpty()) {
-    localStorage.setItem("projectCollection", JSON.stringify(projects));
-    Project.clearProjectsId();
-    Project.setLocalStorageProjectsId();
-  } else {
-    loadProjectsFromLocalStorage();
-    Project.getLocalStorageProjectsId();
-  }
-}
-
-function loadProjectsFromLocalStorage() {
-  const storeProjects = JSON.parse(localStorage.getItem("projectCollection"));
-
-  storeProjects.forEach((storeProject, index) => {
-    const project = new Project(storeProject.name);
-    project.id = storeProject.id;
-    project.tasks = storeProject.tasks;
-    project.taskId = storeProject.taskId;
-
-    projects[index] = project;
-  });
-}
-setProjectLocalstorage();
+setProjectLocalStorage();
 
 function createProject(name) {
   let project = new Project(name);
@@ -217,12 +178,10 @@ function renderProjectContent(e) {
   projectBtnWrapper.classList.add("project-btn-wrapper");
 
   projectBtnWrapper.appendChild(createShowTaskFormBtn());
-  projectBtnWrapper.appendChild(createRemoveProjectBtn());
+  projectBtnWrapper.appendChild(createDeleteProjectBtn());
   projectContentContainer.classList.add("project-content-container");
   projectContentContainer.appendChild(createProjectHeaderContent(e));
   projectContentContainer.appendChild(projectBtnWrapper);
-  // projectContentContainer.appendChild(createShowTaskFormBtn());
-  // projectContentContainer.appendChild(createRemoveProjectBtn());
   projectContentContainer.appendChild(createTaskContainer());
   contentContainer.appendChild(projectContentContainer);
 }
@@ -256,16 +215,6 @@ function createShowTaskFormBtn() {
   return showTaskFormBtn;
 }
 
-function createRemoveProjectBtn() {
-  const removeProjectFormBtn = document.createElement("button");
-  removeProjectFormBtn.setAttribute("type", "submit");
-  removeProjectFormBtn.id = "edit-project-form-btn";
-  removeProjectFormBtn.textContent = "Delete Project";
-  removeProjectFormBtn.addEventListener("click", toggleDelProjectPopup);
-  // addEventListenerRemoveProject(removeProjectFormBtn);
-  return removeProjectFormBtn;
-}
-
 function clearContentContainer() {
   const contentContainer = document.querySelector(".content-container");
 
@@ -283,10 +232,7 @@ function renderProjectTask(e) {
       (project) => project.id === +e.target.dataset.index
     );
   }
-  // const projectIndex = projects.findIndex(
-  //   (project) => project.id === +e.target.dataset.index
-  // );
-  // const projectId = +e.target.dataset.index;
+
   const project = projects[projectIndex];
 
   project.tasks.forEach((task) => {
@@ -332,8 +278,6 @@ function reRenderAllTaskContent() {
 allTaskBtn.addEventListener("click", (e) => {
   reRenderAllTaskContent();
 });
-
-function clearProjectNavbar() {}
 
 export {
   Project,
