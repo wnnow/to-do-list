@@ -16,17 +16,30 @@ function toggleEditTaskForm() {
 
 function addEventListenerToggleEditTaskForm(button) {
   button.addEventListener("click", (e) => {
-    console.log(e.target);
     toggleEditTaskForm();
-    findIndexFromTaskDataset(e);
+    assignEditTaskFormValueToInput(e);
   });
 }
 
-function assignEditTaskFormValueToInput() {
-  const editTaskNameInput = document.querySelector("#edit-task_name");
-  const editTaskDesInput = document.querySelector("#edit-task_description");
+function assignEditTaskFormValueToInput(e) {
+  const taskContent = e.target.parentElement.parentElement;
+  const taskId = taskContent.dataset.taskIndex;
+  const projectId = taskContent.dataset.projectIndex;
+  const taskLabelName = document.querySelector('label[for="edit_task_name"]');
+  const editTaskNameInput = document.querySelector("#edit_task_name");
+  const editTaskDesInput = document.querySelector("#edit_task_description");
   const editTaskDueDateInput = document.querySelector("#edit_task_due_date");
   const editTaskPriorityInput = document.querySelector("#edit_task_priority");
+  const projectIndex = findIndexFromTaskDataset(e).projectIndex;
+  const taskIndex = findIndexFromTaskDataset(e).taskIndex;
+
+  taskLabelName.dataset.projectId = projectId;
+  taskLabelName.dataset.taskId = taskId;
+  editTaskNameInput.value = projects[projectIndex].tasks[taskIndex].name;
+  editTaskDesInput.value = projects[projectIndex].tasks[taskIndex].description;
+  editTaskDueDateInput.value = projects[projectIndex].tasks[taskIndex].duedate;
+  editTaskPriorityInput.value =
+    projects[projectIndex].tasks[taskIndex].priority;
 }
 
 function findIndexFromTaskDataset(e) {
@@ -35,6 +48,7 @@ function findIndexFromTaskDataset(e) {
   const projectDatasetIndex = +taskContent.dataset.projectIndex;
   const projectIndex = findProjectIndex(projectDatasetIndex);
   const taskIndex = findTaskIndex(projectDatasetIndex, taskDatasetIndex);
+  return { projectIndex: projectIndex, taskIndex: taskIndex };
 }
 
 function findProjectIndex(projectDatasetIndex) {
@@ -61,4 +75,37 @@ function addEventListenerEditCancelBtn() {
   });
 }
 addEventListenerEditCancelBtn();
+
+function updateTaskInfo() {
+  const editTaskNameInputValue =
+    document.querySelector("#edit_task_name").value;
+  const editTaskDesInputValue = document.querySelector(
+    "#edit_task_description"
+  ).value;
+  const editTaskDueDateInputValue = document.querySelector(
+    "#edit_task_due_date"
+  ).value;
+  const editTaskPriorityInputValue = document.querySelector(
+    "#edit_task_priority"
+  ).value;
+  const taskLabelName = document.querySelector('label[for="edit_task_name"]');
+  const projectId = +taskLabelName.dataset.projectId;
+  const taskId = +taskLabelName.dataset.taskId;
+  projects[projectId].updateTask(
+    taskId,
+    editTaskNameInputValue,
+    editTaskDesInputValue,
+    editTaskDueDateInputValue,
+    editTaskPriorityInputValue
+  );
+}
+
+function addEventListenerEditSubmitBtn() {
+  const editSubmitBtn = document.querySelector("#edit-task-submit-btn");
+  editSubmitBtn.addEventListener("click", (e) => {
+    updateTaskInfo();
+    toggleEditTaskForm();
+  });
+}
+addEventListenerEditSubmitBtn();
 export { addEventListenerToggleEditTaskForm };
