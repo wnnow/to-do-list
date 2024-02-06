@@ -115,7 +115,9 @@ button {
 #add-task-btn,
 #cancel-task-btn,
 .del-project-popup-btn-wrapper > button,
-.edit-project-popup-btn-wrapper > button {
+.edit-project-popup-btn-wrapper > button,
+#edit-task-submit-btn,
+#edit-task-cancel-btn {
   width: 100px;
   background-color: rgb(245, 245, 245);
   border-radius: 10px;
@@ -302,6 +304,8 @@ footer {
 }
 
 /* task form */
+/* #edit-task-form, */
+.edit-task-form,
 #task-form,
 .del-project-popup {
   display: none;
@@ -316,13 +320,27 @@ footer {
   background-color: white;
   border-radius: 10px;
 }
-#task-form > div {
+#task-form > div,
+#edit-task-form > div {
   margin-bottom: 16px;
+}
+
+#edit-task-form {
+  display: block;
+}
+
+.task-btn-container,
+.edit-task-btn-container {
+  display: flex;
+  justify-content: space-around;
 }
 
 .task-input-name > label,
 .task-input-description > label,
-.task-input-duedate > label {
+.task-input-duedate > label,
+.edit-task-input-name > label,
+.edit-task-input-description > label,
+.edit-task-input-duedate > label {
   display: block;
   margin-bottom: 16px;
 }
