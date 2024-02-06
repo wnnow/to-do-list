@@ -104,8 +104,54 @@ function addEventListenerEditSubmitBtn() {
   const editSubmitBtn = document.querySelector("#edit-task-submit-btn");
   editSubmitBtn.addEventListener("click", (e) => {
     updateTaskInfo();
+    updateTaskContentDOM();
     toggleEditTaskForm();
   });
+}
+
+function updateTaskContentDOM() {
+  const taskContainer = document.querySelector(".task-container");
+  const taskLabelName = document.querySelector('label[for="edit_task_name"]');
+  const projectId = taskLabelName.dataset.projectId;
+  const taskId = taskLabelName.dataset.taskId;
+  const projectIndex = findProjectIndex(+projectId);
+  const taskIndex = findTaskIndex(+projectId, +taskId);
+  const taskContainerChildIndex = Array.from(
+    taskContainer.childNodes
+  ).findIndex(
+    (element) =>
+      element.dataset.projectIndex === projectId &&
+      element.dataset.taskIndex === taskId
+  );
+  const targetTask = taskContainer.childNodes[taskContainerChildIndex];
+
+  targetTask.querySelector("#task-status").checked =
+    projects[projectIndex].tasks[taskIndex].status;
+  targetTask.querySelector(".task-name").textContent =
+    projects[projectIndex].tasks[taskIndex].name;
+  targetTask.querySelector(".task-description").textContent =
+    projects[projectIndex].tasks[taskIndex].description;
+  targetTask.querySelector(".task-duedate").textContent =
+    projects[projectIndex].tasks[taskIndex].duedate;
+
+  if (projects[projectIndex].tasks[taskIndex].priority === "1") {
+    targetTask.querySelector(".task-priority").textContent = "Low";
+    targetTask.className = "";
+    targetTask.classList.add("task-content");
+    targetTask.classList.add("low-priority");
+  }
+  if (projects[projectIndex].tasks[taskIndex].priority === "2") {
+    targetTask.querySelector(".task-priority").textContent = "Medium";
+    targetTask.className = "";
+    targetTask.classList.add("task-content");
+    targetTask.classList.add("medium-priority");
+  }
+  if (projects[projectIndex].tasks[taskIndex].priority === "3") {
+    targetTask.querySelector(".task-priority").textContent = "High";
+    targetTask.className = "";
+    targetTask.classList.add("task-content");
+    targetTask.classList.add("high-priority");
+  }
 }
 addEventListenerEditSubmitBtn();
 export { addEventListenerToggleEditTaskForm };
