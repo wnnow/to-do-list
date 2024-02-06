@@ -93,4 +93,4 @@ function updateProjectNavbarNameTextContent(projectIndex) {
 addEventListenerCancelEditProjectForm();
 addEventListenerSubmitEditProjectForm();
 
-export { createEditProjectBtn };
+export { createEditProjectBtn, findProjectIndexFromProjectHeaderName };

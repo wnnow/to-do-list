@@ -3,6 +3,8 @@ import { projects } from "./project.js";
 import { addEventListenerRenderTaskDetailPopup } from "./taskDetailPopup.js";
 import { addEventListenerToggleTaskStatus } from "./toggleTaskStatus.js";
 import { addEventListenerRemoveTask } from "./removeTask.js";
+import { addEventListenerToggleEditTaskForm } from "./editTaskInfo.js";
+
 class Task {
   constructor(projectId, id, name, description, duedate, priority, status) {
     this.projectId = projectId;
@@ -162,7 +164,7 @@ function renderTask(task) {
   addEventListenerToggleTaskStatus(taskStatus);
   addEventListenerRenderTaskDetailPopup(taskShowDetailBtn);
   addEventListenerRemoveTask(taskDeleteBtn);
-
+  addEventListenerToggleEditTaskForm(taskEditDetailBtn);
   taskContainer.appendChild(taskList);
 }
 

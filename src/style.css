@@ -304,8 +304,8 @@ footer {
 }
 
 /* task form */
-/* #edit-task-form, */
-.edit-task-form,
+#edit-task-form,
+/* .edit-task-form, */
 #task-form,
 .del-project-popup {
   display: none;
@@ -323,10 +323,6 @@ footer {
 #task-form > div,
 #edit-task-form > div {
   margin-bottom: 16px;
-}
-
-#edit-task-form {
-  display: block;
 }
 
 .task-btn-container,
