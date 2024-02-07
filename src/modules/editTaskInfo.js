@@ -1,5 +1,6 @@
 import { projects } from "./project.js";
 import { findProjectIndexFromProjectHeaderName } from "./editProjectName.js";
+import { formattingDateForEditPopup, formattingDate } from "./date.js";
 
 function toggleEditTaskForm() {
   const editTaskForm = document.querySelector("#edit-task-form");
@@ -37,7 +38,14 @@ function assignEditTaskFormValueToInput(e) {
   taskLabelName.dataset.taskId = taskId;
   editTaskNameInput.value = projects[projectIndex].tasks[taskIndex].name;
   editTaskDesInput.value = projects[projectIndex].tasks[taskIndex].description;
-  editTaskDueDateInput.value = projects[projectIndex].tasks[taskIndex].duedate;
+  editTaskDueDateInput.value = formattingDateForEditPopup(
+    projects[projectIndex].tasks[taskIndex].duedate
+  );
+  console.log(
+    "🚀 ~ assignEditTaskFormValueToInput ~ projects[projectIndex].tasks[taskIndex].duedate:",
+    projects[projectIndex].tasks[taskIndex].duedate
+  );
+
   editTaskPriorityInput.value =
     projects[projectIndex].tasks[taskIndex].priority;
 }
@@ -95,9 +103,16 @@ function updateTaskInfo() {
     taskId,
     editTaskNameInputValue,
     editTaskDesInputValue,
-    editTaskDueDateInputValue,
+    new Date(editTaskDueDateInputValue),
     editTaskPriorityInputValue
   );
+  // projects[projectId].updateTask(
+  //   taskId,
+  //   editTaskNameInputValue,
+  //   editTaskDesInputValue,
+  //   editTaskDueDateInputValue,
+  //   editTaskPriorityInputValue
+  // );
 }
 
 function addEventListenerEditSubmitBtn() {
@@ -131,8 +146,11 @@ function updateTaskContentDOM() {
     projects[projectIndex].tasks[taskIndex].name;
   targetTask.querySelector(".task-description").textContent =
     projects[projectIndex].tasks[taskIndex].description;
-  targetTask.querySelector(".task-duedate").textContent =
-    projects[projectIndex].tasks[taskIndex].duedate;
+  targetTask.querySelector(".task-duedate").textContent = formattingDate(
+    projects[projectIndex].tasks[taskIndex].duedate
+  );
+  // targetTask.querySelector(".task-duedate").textContent =
+  //   projects[projectIndex].tasks[taskIndex].duedate;
 
   if (projects[projectIndex].tasks[taskIndex].priority === "1") {
     targetTask.querySelector(".task-priority").textContent = "Low";

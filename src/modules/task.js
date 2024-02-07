@@ -1,10 +1,11 @@
 // this is task.js
+
 import { projects } from "./project.js";
 import { addEventListenerRenderTaskDetailPopup } from "./taskDetailPopup.js";
 import { addEventListenerToggleTaskStatus } from "./toggleTaskStatus.js";
 import { addEventListenerRemoveTask } from "./removeTask.js";
 import { addEventListenerToggleEditTaskForm } from "./editTaskInfo.js";
-
+import { formattingDate } from "./date.js";
 class Task {
   constructor(projectId, id, name, description, duedate, priority, status) {
     this.projectId = projectId;
@@ -69,6 +70,8 @@ function createTask(e) {
       +document.querySelector(".project-header-name").dataset.index
   );
 
+  const taskInputDateValue = new Date(taskInputDuedate.value);
+
   if (
     taskInputName.value === "" ||
     taskInputDesciption.value === "" ||
@@ -80,10 +83,17 @@ function createTask(e) {
   projects[projectTargetIndex].addTask(
     taskInputName.value,
     taskInputDesciption.value,
-    taskInputDuedate.value,
+    taskInputDateValue,
     taskInputPriority.value,
     false
   );
+  // projects[projectTargetIndex].addTask(
+  //   taskInputName.value,
+  //   taskInputDesciption.value,
+  //   taskInputDuedate.value,
+  //   taskInputPriority.value,
+  //   false
+  // );
 }
 
 function renderTask(task) {
@@ -136,7 +146,8 @@ function renderTask(task) {
   taskStatus.checked = task.status;
   taskName.textContent = task.name;
   taskDes.textContent = task.description;
-  taskDuedate.textContent = task.duedate;
+  taskDuedate.textContent = formattingDate(task.duedate);
+  // taskDuedate.textContent = task.duedate;
 
   if (task.priority === "1") {
     taskPriority.textContent = "Low";
