@@ -1,5 +1,5 @@
 import { projects } from "./project.js";
-
+import { formattingDate } from "./date.js";
 function addEventListenerCloseTaskDetailBtn() {
   const taskDetailContainer = document.querySelector(
     "#task-popup-detail-container"
@@ -48,7 +48,11 @@ function renderTaskDetailPopup(e) {
     taskDetailPopupPriority.textContent = "Low";
   }
 
-  taskDetailPopupDueDate.textContent = `${projects[projectId].tasks[taskId].duedate}`;
+  taskDetailPopupDueDate.textContent = `${formattingDate(
+    projects[projectId].tasks[taskId].duedate
+  )}`;
+
+  // taskDetailPopupDueDate.textContent = `${projects[projectId].tasks[taskId].duedate}`;
   taskDetailPopupDescription.textContent = `${projects[projectId].tasks[taskId].description}`;
 }
 

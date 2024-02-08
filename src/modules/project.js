@@ -1,3 +1,5 @@
+import { addEventListenerTodayTask } from "./todayTask.js";
+
 import { Task, toggleTaskForm, renderTask } from "./task.js";
 
 import { createDeleteProjectBtn } from "./removeProject.js";
@@ -261,26 +263,26 @@ function clearTaskContainer() {
   }
 }
 
-function createAllTaskHeader() {
+function createHeaderName(name) {
   const contentContainer = document.querySelector(".content-container");
   const taskContainer = document.createElement("ul");
   const projectHeaderName = document.createElement("div");
   taskContainer.classList.add("task-container");
   projectHeaderName.classList.add("project-header-name");
-  projectHeaderName.textContent = "All Task";
+  projectHeaderName.textContent = name;
   contentContainer.appendChild(projectHeaderName);
   contentContainer.appendChild(taskContainer);
 }
 
 const allTaskBtn = document.querySelector(".all-task");
 
-function reRenderAllTaskContent() {
+function reRenderProjectHeaderName(name) {
   clearContentContainer();
-  createAllTaskHeader();
+  createHeaderName(name);
   renderDefaultAllTaskContent();
 }
 allTaskBtn.addEventListener("click", (e) => {
-  reRenderAllTaskContent();
+  reRenderProjectHeaderName("All Task");
 });
 
 export {
@@ -289,6 +291,8 @@ export {
   updateProject,
   projects,
   renderProjectNavbar,
-  reRenderAllTaskContent,
+  reRenderProjectHeaderName,
   renderProjectTask,
+  clearContentContainer,
+  createHeaderName,
 };

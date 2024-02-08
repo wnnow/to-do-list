@@ -41,10 +41,6 @@ function assignEditTaskFormValueToInput(e) {
   editTaskDueDateInput.value = formattingDateForEditPopup(
     projects[projectIndex].tasks[taskIndex].duedate
   );
-  console.log(
-    "🚀 ~ assignEditTaskFormValueToInput ~ projects[projectIndex].tasks[taskIndex].duedate:",
-    projects[projectIndex].tasks[taskIndex].duedate
-  );
 
   editTaskPriorityInput.value =
     projects[projectIndex].tasks[taskIndex].priority;

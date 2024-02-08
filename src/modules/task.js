@@ -87,13 +87,6 @@ function createTask(e) {
     taskInputPriority.value,
     false
   );
-  // projects[projectTargetIndex].addTask(
-  //   taskInputName.value,
-  //   taskInputDesciption.value,
-  //   taskInputDuedate.value,
-  //   taskInputPriority.value,
-  //   false
-  // );
 }
 
 function renderTask(task) {

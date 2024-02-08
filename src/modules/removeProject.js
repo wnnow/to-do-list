@@ -1,4 +1,8 @@
-import { projects, updateProject, reRenderAllTaskContent } from "./project.js";
+import {
+  projects,
+  updateProject,
+  reRenderProjectHeaderName,
+} from "./project.js";
 
 function createDeleteProjectBtn() {
   const deleteProjectFormBtn = document.createElement("button");
@@ -55,7 +59,7 @@ function addEventListenerDelProjectYesBtn() {
 
     removeProject();
     removeProjectFromDOM();
-    reRenderAllTaskContent();
+    reRenderProjectHeaderName("All Task");
   });
 }
 
