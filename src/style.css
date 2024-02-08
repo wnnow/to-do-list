@@ -387,5 +387,21 @@ label[for="edit_project_name"] {
   grid-template-columns: 75px 1fr;
   margin-bottom: 8px;
 }
+
+/* footer */
+
+footer {
+  padding: 16px;
+}
+
+.footer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.footer-github-logo {
+  width: 25px;
+}
 @media screen and (max-width: 500px) {
 }

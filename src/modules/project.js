@@ -247,10 +247,30 @@ function renderProjectTask(e) {
 }
 
 function renderDefaultAllTaskContent() {
+  // projects.forEach((project) => {
+  //   project.tasks.forEach((task) => {
+  //     renderTask(task);
+  //   });
+  // });
+  const tasks = [];
   projects.forEach((project) => {
     project.tasks.forEach((task) => {
-      renderTask(task);
+      tasks.push(task);
     });
+  });
+
+  const sortedTasks = tasks.sort(function (a, b) {
+    if (!(a.duedate instanceof Date)) {
+      a.duedate = new Date(a.duedate);
+    }
+    if (!(b.duedate instanceof Date)) {
+      b.duedate = new Date(b.duedate);
+    }
+    return a.duedate - b.duedate;
+  });
+  console.log(sortedTasks);
+  sortedTasks.forEach((task) => {
+    renderTask(task);
   });
 }
 
