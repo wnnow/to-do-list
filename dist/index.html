@@ -1,10 +1,214 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>Odin Restaurant</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script defer src="main.js"></script>
-  </head>
-  <body></body>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./index.js" defer></script>
+  <script defer src="main.js"></script></head>
+  <body>
+    <header class="header-wrapper">
+      <div class="header-container">
+        <div class="expand-nav-btn">
+          <span class="material-symbols-outlined"> menu </span>
+        </div>
+        <div class="header-text">To Do list</div>
+      </div>
+    </header>
+    <main class="wrapper">
+      <div class="navbar-wrapper">
+        <div class="navbar-container">
+          <div class="all-task">All Task</div>
+          <div class="today-task">Today Task</div>
+          <div class="weekly-task">Weekly Task</div>
+        </div>
+        <div class="project-nav-container">
+          <div class="project-nav-header">
+            <div class="project-nav-text">Project</div>
+            <button id="show-project-form-btn">
+              <span class="material-symbols-outlined"> add </span>
+            </button>
+          </div>
+          <div class="project-list-container"></div>
+        </div>
+      </div>
+
+      <div class="content-container">
+        <div class="project-content-container">
+          <div class="project-header-name">All Task</div>
+          <ul class="task-container"></ul>
+        </div>
+      </div>
+    </main>
+    <form class="project-form-container" id="project-form">
+      <div class="project-form-text">
+        <label for="project_name">Project Name</label>
+
+        <input
+          type="text"
+          id="project_name"
+          name="project_name"
+          placeholder="Shopping list ... etc"
+          required
+        />
+      </div>
+      <div class="project-btn-container">
+        <button type="submit" id="add-project-btn">Add</button>
+        <button id="cancel-project-btn">Cancel</button>
+      </div>
+    </form>
+
+    <form id="task-form">
+      <div class="task-input-name">
+        <label for="task_name">Task Name</label>
+        <input type="text" id="task_name" name="task_name" required />
+      </div>
+      <div class="task-input-description">
+        <label for="task_description">Description</label>
+        <input
+          type="text"
+          id="task_description"
+          name="task_description"
+          required
+        />
+      </div>
+      <div class="task-input-duedate">
+        <label for="task_due_date">Due date</label>
+        <input
+          type="date"
+          id="task_due_date"
+          name="task_due_date"
+          min="2024-01-01"
+          max="2030-12-31"
+          required
+        />
+      </div>
+      <div class="task-input-priority">
+        <label for="task_priority">Priority</label>
+        <select id="task_priority" name="task_priority" required>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+        </select>
+      </div>
+      <div class="task-btn-container">
+        <button type="button" id="add-task-btn">Add</button>
+        <button type="button" id="cancel-task-btn">Cancel</button>
+      </div>
+    </form>
+    <div id="task-popup-detail-container">
+      <div class="task-popup-header-wrapper">
+        <div id="task-popup-detail-header-text">Dummy task Header</div>
+        <button type="click" id="task-popup-close-btn">
+          <span class="material-symbols-outlined"> close </span>
+        </button>
+      </div>
+      <div class="task-popup-detail-wrapper">
+        <div id="task-popup-project-name">Project:</div>
+        <div id="task-popup-project-name-value">Shopping</div>
+      </div>
+      <div class="task-popup-detail-wrapper">
+        <div id="task-popup-priority">Priority:</div>
+        <div id="task-popup-priority-value">High</div>
+      </div>
+      <div class="task-popup-detail-wrapper">
+        <div id="task-popup-duedate">Due date:</div>
+        <div id="task-popup-duedate-value">2024-11-2</div>
+      </div>
+      <div class="task-popup-detail-wrapper">
+        <div id="task-popup-description">Detail:</div>
+        <div id="task-popup-description-value">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, animi!
+          Cupiditate, ducimus quos molestias, similique fugit quasi laudantium
+          harum eius, asperiores aut cum! Dolores consequatur, soluta ducimus
+          distinctio velit asperiores!
+        </div>
+      </div>
+    </div>
+    <div class="del-project-popup">
+      <div class="del-project-popup-header">Are you sure ?</div>
+      <div class="del-project-popup-btn-wrapper">
+        <button type="click" id="del-project-yes-btn">Yes</button>
+        <button type="click" id="del-project-no-btn">No</button>
+      </div>
+    </div>
+    <form class="edit-project-popup">
+      <div class="edit-project-input-wrapper">
+        <label for="edit_project_name">Project Name</label>
+        <input
+          type="text"
+          id="edit_project_name"
+          name="edit_project_name"
+          maxlength="48"
+          required
+        />
+      </div>
+      <div class="edit-project-popup-btn-wrapper">
+        <button type="click" id="edit-project-submit-btn">Submit</button>
+        <button type="click" id="edit-project-cancel-btn">Cancel</button>
+      </div>
+    </form>
+
+    <form id="edit-task-form" class="edit-task-form">
+      <div class="edit-task-input-name">
+        <label for="edit_task_name">Task Name</label>
+        <input type="text" id="edit_task_name" name="edit_task_name" required />
+      </div>
+      <div class="edit-task-input-description">
+        <label for="edit_task_description">Description</label>
+        <input
+          type="text"
+          id="edit_task_description"
+          name="edit_task_description"
+          required
+        />
+      </div>
+      <div class="edit-task-input-duedate">
+        <label for="edit_task_due_date">Due date</label>
+        <input
+          type="date"
+          id="edit_task_due_date"
+          name="edit_task_due_date"
+          required
+        />
+      </div>
+      <div class="edit-task-input-priority">
+        <label for="edit_task_priority">Priority</label>
+        <select id="edit_task_priority" name="edit_task_priority" required>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+        </select>
+      </div>
+      <div class="edit-task-btn-container">
+        <button type="button" id="edit-task-submit-btn">Submit</button>
+        <button type="button" id="edit-task-cancel-btn">Cancel</button>
+      </div>
+    </form>
+    <footer>
+      <div class="footer-wrapper">
+        <a
+          class="footer-link"
+          href="https://github.com/wnnow/to-do-list"
+          target="_blank"
+          ><img
+            class="footer-github-logo"
+            src="./images/github-mark.svg"
+            alt="github logo"
+        /></a>
+        <div class="footer-text">wnnow</div>
+      </div>
+    </footer>
+  </body>
 </html>

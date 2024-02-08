@@ -23,7 +23,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Odin Restaurant",
+      template: "./src/index.html",
+
+      filename: "index.html",
     }),
   ],
   devtool: "inline-source-map",
