@@ -1,12 +1,12 @@
-import { addEventListenerTodayTask } from "./todayTask.js";
+import { addEventListenerTodayTask } from './todayTask.js';
 
-import { Task, toggleTaskForm, renderTask } from "./task.js";
+import { Task, toggleTaskForm, renderTask } from './task.js';
 
-import { createDeleteProjectBtn } from "./removeProject.js";
+import { createDeleteProjectBtn } from './removeProject.js';
 
-import { setProjectLocalStorage } from "./setProjectLocalStorage.js";
+import { setProjectLocalStorage } from './setProjectLocalStorage.js';
 
-import { createEditProjectBtn } from "./editProjectName.js";
+import { createEditProjectBtn } from './editProjectName.js';
 
 let projects = [];
 class Project {
@@ -27,10 +27,10 @@ class Project {
   }
 
   static getLocalStorageProjectsId() {
-    Project.#id = JSON.parse(localStorage.getItem("projectsId"));
+    Project.#id = JSON.parse(localStorage.getItem('projectsId'));
   }
   static setLocalStorageProjectsId() {
-    localStorage.setItem("projectsId", JSON.stringify(Project.getId()));
+    localStorage.setItem('projectsId', JSON.stringify(Project.getId()));
   }
 
   static clearProjectsId() {
@@ -50,11 +50,11 @@ class Project {
   }
 
   setLocalStorageProjectId() {
-    localStorage.setItem("projectId", JSON.stringify(this.getId()));
+    localStorage.setItem('projectId', JSON.stringify(this.getId()));
   }
 
   getLocalStorageProjectId() {
-    this.taskId = JSON.parse(localStorage.getItem("projectId"));
+    this.taskId = JSON.parse(localStorage.getItem('projectId'));
   }
 
   addTask(taskName, taskDescription, taskDuedate, taskPriority) {
@@ -99,36 +99,36 @@ function createProject(name) {
 }
 
 function updateProject() {
-  localStorage.setItem("projectCollection", JSON.stringify(projects));
+  localStorage.setItem('projectCollection', JSON.stringify(projects));
 }
 
 // add project
 
-const showProjectFormBtn = document.querySelector("#show-project-form-btn");
-const projectFormContainer = document.querySelector(".project-form-container");
-const cancelFormBtn = document.querySelector("#cancel-project-btn");
-const inputProjectName = document.querySelector("#project_name");
-const addProjectBtn = document.querySelector("#add-project-btn");
+const showProjectFormBtn = document.querySelector('#show-project-form-btn');
+const projectFormContainer = document.querySelector('.project-form-container');
+const cancelFormBtn = document.querySelector('#cancel-project-btn');
+const inputProjectName = document.querySelector('#project_name');
+const addProjectBtn = document.querySelector('#add-project-btn');
 
-showProjectFormBtn.addEventListener("click", (e) => {
+showProjectFormBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  projectFormContainer.style.display = "block";
+  projectFormContainer.style.display = 'block';
 });
 
-cancelFormBtn.addEventListener("click", (e) => {
+cancelFormBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  projectFormContainer.style.display = "none";
+  projectFormContainer.style.display = 'none';
 });
 
-addProjectBtn.addEventListener("click", (e) => {
-  if (inputProjectName.value === "") {
+addProjectBtn.addEventListener('click', (e) => {
+  if (inputProjectName.value === '') {
     return;
   }
   Project.getLocalStorageProjectsId();
   createProject(inputProjectName.value);
   Project.setLocalStorageProjectsId();
-  inputProjectName.value = "";
-  projectFormContainer.style.display = "none";
+  inputProjectName.value = '';
+  projectFormContainer.style.display = 'none';
 
   addNewProjectNavbar();
   e.preventDefault();
@@ -136,15 +136,15 @@ addProjectBtn.addEventListener("click", (e) => {
 
 function addNewProjectNavbar() {
   const projectNavListContainer = document.querySelector(
-    ".project-list-container"
+    '.project-list-container'
   );
-  const project = document.createElement("div");
+  const project = document.createElement('div');
 
   project.textContent = `${projects[projects.length - 1].name}`;
   project.dataset.index = `${Project.getId() - 1}`;
-  project.classList.add("project-nav-item");
+  project.classList.add('project-nav-item');
 
-  project.addEventListener("click", (e) => {
+  project.addEventListener('click', (e) => {
     renderProjectContent(e);
     renderProjectTask(e);
   });
@@ -153,19 +153,19 @@ function addNewProjectNavbar() {
 }
 
 function renderProjectNavbar() {
-  const projectData = JSON.parse(localStorage.getItem("projectCollection"));
+  const projectData = JSON.parse(localStorage.getItem('projectCollection'));
   const projectNavListContainer = document.querySelector(
-    ".project-list-container"
+    '.project-list-container'
   );
 
   projectData.forEach((project) => {
-    const projectDiv = document.createElement("div");
+    const projectDiv = document.createElement('div');
 
     projectDiv.textContent = `${project.name}`;
     projectDiv.dataset.index = `${project.id}`;
-    projectDiv.classList.add("project-nav-item");
+    projectDiv.classList.add('project-nav-item');
 
-    projectDiv.addEventListener("click", (e) => {
+    projectDiv.addEventListener('click', (e) => {
       renderProjectContent(e);
       renderProjectTask(e);
     });
@@ -176,16 +176,16 @@ function renderProjectNavbar() {
 
 function renderProjectContent(e) {
   e.stopPropagation();
-  const contentContainer = document.querySelector(".content-container");
-  const projectContentContainer = document.createElement("div");
-  const projectBtnWrapper = document.createElement("div");
+  const contentContainer = document.querySelector('.content-container');
+  const projectContentContainer = document.createElement('div');
+  const projectBtnWrapper = document.createElement('div');
   clearContentContainer();
-  projectBtnWrapper.classList.add("project-btn-wrapper");
+  projectBtnWrapper.classList.add('project-btn-wrapper');
 
   projectBtnWrapper.appendChild(createShowTaskFormBtn());
   projectBtnWrapper.appendChild(createEditProjectBtn());
   projectBtnWrapper.appendChild(createDeleteProjectBtn());
-  projectContentContainer.classList.add("project-content-container");
+  projectContentContainer.classList.add('project-content-container');
   projectContentContainer.appendChild(createProjectHeaderContent(e));
   projectContentContainer.appendChild(projectBtnWrapper);
   projectContentContainer.appendChild(createTaskContainer());
@@ -193,36 +193,36 @@ function renderProjectContent(e) {
 }
 
 function createProjectHeaderContent(e) {
-  const projectHeaderName = document.createElement("div");
+  const projectHeaderName = document.createElement('div');
   const projectIndex = projects.findIndex(
     (project) => project.id === +e.target.dataset.index
   );
 
   projectHeaderName.textContent = `${projects[projectIndex].name}`;
   projectHeaderName.dataset.index = `${e.target.dataset.index}`;
-  projectHeaderName.classList.add("project-header-name");
+  projectHeaderName.classList.add('project-header-name');
   return projectHeaderName;
 }
 
 function createTaskContainer() {
-  const taskContainer = document.createElement("ul");
-  taskContainer.classList.add("task-container");
+  const taskContainer = document.createElement('ul');
+  taskContainer.classList.add('task-container');
   return taskContainer;
 }
 
 function createShowTaskFormBtn() {
-  const showTaskFormBtn = document.createElement("button");
-  showTaskFormBtn.setAttribute("type", "submit");
-  showTaskFormBtn.classList.add("project-form-btn");
-  showTaskFormBtn.textContent = "Add Task";
-  showTaskFormBtn.addEventListener("click", (e) => {
+  const showTaskFormBtn = document.createElement('button');
+  showTaskFormBtn.setAttribute('type', 'submit');
+  showTaskFormBtn.classList.add('project-form-btn');
+  showTaskFormBtn.textContent = 'Add Task';
+  showTaskFormBtn.addEventListener('click', (e) => {
     toggleTaskForm();
   });
   return showTaskFormBtn;
 }
 
 function clearContentContainer() {
-  const contentContainer = document.querySelector(".content-container");
+  const contentContainer = document.querySelector('.content-container');
 
   while (contentContainer.firstElementChild) {
     contentContainer.removeChild(contentContainer.firstElementChild);
@@ -231,7 +231,7 @@ function clearContentContainer() {
 
 function renderProjectTask(e) {
   let projectIndex;
-  if (typeof e === "number") {
+  if (typeof e === 'number') {
     projectIndex = projects.findIndex((project) => project.id === e);
   } else {
     projectIndex = projects.findIndex(
@@ -268,7 +268,7 @@ function renderDefaultAllTaskContent() {
     }
     return a.duedate - b.duedate;
   });
-  console.log(sortedTasks);
+
   sortedTasks.forEach((task) => {
     renderTask(task);
   });
@@ -277,32 +277,32 @@ function renderDefaultAllTaskContent() {
 renderDefaultAllTaskContent();
 
 function clearTaskContainer() {
-  const taskContainer = document.querySelector(".task-container");
+  const taskContainer = document.querySelector('.task-container');
   while (taskContainer.firstElementChild) {
     taskContainer.removeChild(taskContainer.firstElementChild);
   }
 }
 
 function createHeaderName(name) {
-  const contentContainer = document.querySelector(".content-container");
-  const taskContainer = document.createElement("ul");
-  const projectHeaderName = document.createElement("div");
-  taskContainer.classList.add("task-container");
-  projectHeaderName.classList.add("project-header-name");
+  const contentContainer = document.querySelector('.content-container');
+  const taskContainer = document.createElement('ul');
+  const projectHeaderName = document.createElement('div');
+  taskContainer.classList.add('task-container');
+  projectHeaderName.classList.add('project-header-name');
   projectHeaderName.textContent = name;
   contentContainer.appendChild(projectHeaderName);
   contentContainer.appendChild(taskContainer);
 }
 
-const allTaskBtn = document.querySelector(".all-task");
+const allTaskBtn = document.querySelector('.all-task');
 
 function reRenderProjectHeaderName(name) {
   clearContentContainer();
   createHeaderName(name);
   renderDefaultAllTaskContent();
 }
-allTaskBtn.addEventListener("click", (e) => {
-  reRenderProjectHeaderName("All Task");
+allTaskBtn.addEventListener('click', (e) => {
+  reRenderProjectHeaderName('All Task');
 });
 
 export {

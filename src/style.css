@@ -341,7 +341,8 @@ footer {
   margin-bottom: 16px;
 }
 
-.task-input-error-text {
+.task-input-error-text,
+.edit-project-err {
   position: absolute;
   color: #d04848;
   font-size: 0.75rem;
@@ -371,7 +372,7 @@ input:focus:invalid {
 }
 
 .edit-project-input-wrapper {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 label[for='edit_project_name'] {
   font-size: 1.25rem;

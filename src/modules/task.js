@@ -88,7 +88,7 @@ function addEventListenerAddTaskBtn(button) {
       }
       return;
     }
-    console.log('run');
+
     createTask();
     toggleTaskForm();
     clearTaskFormValue();
