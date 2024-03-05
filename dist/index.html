@@ -72,7 +72,17 @@
     <form id="task-form">
       <div class="task-input-name">
         <label for="task_name">Task Name</label>
-        <input type="text" id="task_name" name="task_name" required />
+        <input
+          type="text"
+          id="task_name"
+          name="task_name"
+          required
+          minlength="1"
+          maxlength="30"
+        />
+        <div class="task-input-error-text" id="task-input-name-error-text">
+          test
+        </div>
       </div>
       <div class="task-input-description">
         <label for="task_description">Description</label>
@@ -81,7 +91,12 @@
           id="task_description"
           name="task_description"
           required
+          minlength="1"
+          maxlength="30"
         />
+        <div class="task-input-error-text" id="task-input-des-error-text">
+          test
+        </div>
       </div>
       <div class="task-input-duedate">
         <label for="task_due_date">Due date</label>
@@ -93,6 +108,9 @@
           max="2030-12-31"
           required
         />
+        <div class="task-input-error-text" id="task-input-date-error-text">
+          test
+        </div>
       </div>
       <div class="task-input-priority">
         <label for="task_priority">Priority</label>

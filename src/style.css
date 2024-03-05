@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 .material-symbols-outlined {
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +28,7 @@
 }
 
 html {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   /* color-scheme: dark light; */
 }
 
@@ -341,6 +341,21 @@ footer {
   margin-bottom: 16px;
 }
 
+.task-input-error-text {
+  position: absolute;
+  color: #d04848;
+  font-size: 0.75rem;
+  visibility: hidden;
+}
+
+input:focus:valid {
+  border-color: green;
+}
+
+input:focus:invalid {
+  border-color: red;
+}
+
 #task-popup-detail-container,
 .edit-project-popup {
   display: none;
@@ -358,7 +373,7 @@ footer {
 .edit-project-input-wrapper {
   margin-bottom: 16px;
 }
-label[for="edit_project_name"] {
+label[for='edit_project_name'] {
   font-size: 1.25rem;
   display: block;
   margin-bottom: 16px;
